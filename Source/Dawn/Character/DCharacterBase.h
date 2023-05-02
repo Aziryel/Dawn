@@ -10,6 +10,8 @@
 #include "GameFramework/Character.h"
 #include "DCharacterBase.generated.h"
 
+class ADWeaponBase;
+
 UCLASS()
 class DAWN_API ADCharacterBase : public ACharacter, public IAbilitySystemInterface
 {

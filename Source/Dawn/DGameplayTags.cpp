@@ -34,6 +34,10 @@ void FDGameplayTags::AddAllTags(UGameplayTagsManager& Manager)
 	AddTag(InputTag_Ability7, "InputTag.Ability7", "General Ability input.");
 	AddTag(InputTag_Pause, "InputTag.Pause", "Pause input.");
 	AddTag(InputTag_Interact, "InputTag.Interact", "Input to interact with items.");
+	AddTag(WeaponTag_Initial, "WeaponTag.Initial", "Weapon is Initialized in the World");
+	AddTag(WeaponTag_Equipped, "WeaponTag.Equipped", "Weapon is equipped");
+	AddTag(WeaponTag_Dropped, "WeaponTag.Dropped", "Weapon is dropped by a character");
+	AddTag(EquippedTag_Sword, "EquippedTag.Sword", "Tag to Equip a Sword Weapon Type");
 }
 
 void FDGameplayTags::AddTag(FGameplayTag& OutTag, const ANSICHAR* TagName, const ANSICHAR* TagComment)

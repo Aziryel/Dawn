@@ -7,9 +7,11 @@
 #include "EnhancedInputSubsystems.h"
 #include "Camera/CameraComponent.h"
 #include "Dawn/DGameplayTags.h"
+#include "Dawn/Components/DCombatComponent.h"
 #include "Dawn/Input/DEnhancedInputComponent.h"
 #include "Dawn/PlayerController/DPlayerController.h"
 #include "Dawn/PlayerState/DPlayerState.h"
+#include "Dawn/Weapon/DWeaponBase.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/KismetSystemLibrary.h"
@@ -50,6 +52,9 @@ ADPlayerCharacter::ADPlayerCharacter(const class FObjectInitializer& ObjectIniti
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
+
+	CombatComponent = CreateDefaultSubobject<UDCombatComponent>("CombatComponent");
+	CombatComponent->SetIsReplicated(true);
 }
 
 void ADPlayerCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -57,6 +62,7 @@ void ADPlayerCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Ou
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	//DOREPLIFETIME_CONDITION_NOTIFY(ADPlayerCharacter,bInputDisabled,COND_None,REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION(ADPlayerCharacter, OverlappingWeapon, COND_OwnerOnly);
 }
 
 void ADPlayerCharacter::BeginPlay()
@@ -356,6 +362,34 @@ void ADPlayerCharacter::Input_Interact(const FInputActionValue& InputActionValue
 {
 	SendLocalInputToASC(true, EDAbilityInputID::Interact);
 	OnInteractActionUse();
+}
+
+void ADPlayerCharacter::SetOverlappingWeapon(ADWeaponBase* Weapon)
+{
+	if (OverlappingWeapon)
+	{
+		OverlappingWeapon->ShowPickupWidget(false);
+	}
+	OverlappingWeapon = Weapon;
+	if (IsLocallyControlled())
+	{
+		if (OverlappingWeapon)
+		{
+			OverlappingWeapon->ShowPickupWidget(true);
+		}
+	}
+}
+
+void ADPlayerCharacter::OnRep_OverlappingWeapon(ADWeaponBase* LastWeapon)
+{
+	if (OverlappingWeapon)
+	{
+		OverlappingWeapon->ShowPickupWidget(true);
+	}
+	if (LastWeapon)
+	{
+		LastWeapon->ShowPickupWidget(false);
+	}
 }
 
 void ADPlayerCharacter::TurnAtRate(float Rate)

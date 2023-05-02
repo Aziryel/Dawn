@@ -21,6 +21,8 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnAbility7Action);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPauseAction);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnInteractAction);
 
+class UDCombatComponent;
+
 UCLASS()
 class DAWN_API ADPlayerCharacter : public ADCharacterBase
 {
@@ -173,5 +175,18 @@ public:
 	void Input_Pause(const FInputActionValue& InputActionValue);
 	/** Handle the Pause action */
 	void Input_Interact(const FInputActionValue& InputActionValue);
+
+	// Public Setters
+	void SetOverlappingWeapon(ADWeaponBase* Weapon);
+
+private:
+
+	UPROPERTY(VisibleAnywhere)
+	UDCombatComponent* CombatComponent;
 	
+	UPROPERTY(ReplicatedUsing = OnRep_OverlappingWeapon)
+	ADWeaponBase* OverlappingWeapon;
+
+	UFUNCTION()
+	void OnRep_OverlappingWeapon(ADWeaponBase* LastWeapon);
 };

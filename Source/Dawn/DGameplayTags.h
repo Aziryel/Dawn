@@ -28,6 +28,10 @@ public:
 	FGameplayTag InputTag_Ability7;
 	FGameplayTag InputTag_Interact;
 	FGameplayTag InputTag_Pause;
+	FGameplayTag WeaponTag_Initial;
+	FGameplayTag WeaponTag_Equipped;
+	FGameplayTag WeaponTag_Dropped;
+	FGameplayTag EquippedTag_Sword;
 
 protected:
 
