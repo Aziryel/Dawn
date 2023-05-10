@@ -3,6 +3,7 @@
 
 #include "DWeaponBase.h"
 
+#include "Abilities/Tasks/AbilityTask_NetworkSyncPoint.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/WidgetComponent.h"
 #include "Dawn/Character/DPlayerCharacter.h"
@@ -35,12 +36,15 @@ ADWeaponBase::ADWeaponBase()
 void ADWeaponBase::BeginPlay()
 {
 	Super::BeginPlay();
-
+	AbilitySystemComponent->InitAbilityActorInfo(this, this);
+	
 	// Only do this on the Server
-	if (HasAuthority())
+	if (true/*HasAuthority()*/)
 	{
 		PickupArea->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 		PickupArea->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
+		PickupArea->SetCollisionResponseToChannel(COLLISION_ABILITY, ECR_Overlap);
+		PickupArea->SetCollisionResponseToChannel(COLLISION_INTERACTABLE, ECR_Overlap);
 		PickupArea->OnComponentBeginOverlap.AddDynamic(this, &ADWeaponBase::OnCapsuleOverlap);
 		PickupArea->OnComponentEndOverlap.AddDynamic(this, &ADWeaponBase::OnCapsuleEndOverlap);
 	}
@@ -49,27 +53,61 @@ void ADWeaponBase::BeginPlay()
 void ADWeaponBase::OnCapsuleOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	ADPlayerCharacter* PlayerCharacter = Cast<ADPlayerCharacter>(OtherActor);
-	if (PlayerCharacter)
-	{
-		PlayerCharacter->SetOverlappingWeapon(this);
-	}
+	
 }
 
 void ADWeaponBase::OnCapsuleEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	ADPlayerCharacter* PlayerCharacter = Cast<ADPlayerCharacter>(OtherActor);
-	if (PlayerCharacter)
-	{
-		PlayerCharacter->SetOverlappingWeapon(nullptr);
-	}
+	
 }
 
 void ADWeaponBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+bool ADWeaponBase::IsAvailableForInteraction_Implementation(UPrimitiveComponent* InteractionComponent) const
+{
+	//return IDInteractable::IsAvailableForInteraction_Implementation(InteractionComponent);
+	if (InteractionComponent == PickupArea)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+void ADWeaponBase::GetPreInteractSyncType_Implementation(bool& bShouldSync, EAbilityTaskNetSyncType& Type,
+	UPrimitiveComponent* InteractionComponent) const
+{
+	//IDInteractable::GetPreInteractSyncType_Implementation(bShouldSync, Type, InteractionComponent);
+	if (InteractionComponent == PickupArea)
+	{
+		bShouldSync = false;
+		Type = EAbilityTaskNetSyncType::OnlyClientWait;
+	}
+	else
+	{
+		bShouldSync = false;
+		Type = EAbilityTaskNetSyncType::BothWait;
+	}
+}
+
+float ADWeaponBase::GetInteractionDuration_Implementation(UPrimitiveComponent* InteractionComponent) const
+{
+	//return IDInteractable::GetInteractionDuration_Implementation(InteractionComponent);
+	if (InteractionComponent == PickupArea)
+	{
+		return InteractionDuration;
+	}
+	else
+	{
+		return 0.0f;
+	}
 }
 
 UAbilitySystemComponent* ADWeaponBase::GetAbilitySystemComponent() const

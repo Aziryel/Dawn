@@ -3,3 +3,7 @@
 
 #include "DAbilitySystemComponent.h"
 
+int32 UDAbilitySystemComponent::K2_GetTagCount(FGameplayTag TagToCheck) const
+{
+	return GetTagCount(TagToCheck);
+}

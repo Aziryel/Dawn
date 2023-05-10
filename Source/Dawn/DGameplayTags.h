@@ -32,6 +32,12 @@ public:
 	FGameplayTag WeaponTag_Equipped;
 	FGameplayTag WeaponTag_Dropped;
 	FGameplayTag EquippedTag_Sword;
+	FGameplayTag AbilityTag_Interaction;
+	FGameplayTag AbilityTag_InteractEnd;
+	FGameplayTag AbilityTag_BlocksInteraction;
+	FGameplayTag StateTag_Dead;
+	FGameplayTag StateTag_Interaction;
+	FGameplayTag StateTag_InteractionRemoval;
 
 protected:
 

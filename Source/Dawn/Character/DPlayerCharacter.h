@@ -31,6 +31,7 @@ class DAWN_API ADPlayerCharacter : public ADCharacterBase
 public:
 	ADPlayerCharacter(const class FObjectInitializer& ObjectInitializer);
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	virtual void PostInitializeComponents() override;
 	
 	/** Camera boom positioning the camera behind the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
@@ -39,6 +40,13 @@ public:
 	/** Follow camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
 	class UCameraComponent* FollowCamera;
+	
+	/** Socket to start the trace to search for intractable targets */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Dawn|Interactable")
+	FName TraceSourceSocketName;
+
+	UFUNCTION(BlueprintCallable, Category = "Dawn|Interactable")
+	FName GetSocketNameTraceSource() const;
 
 
 protected:

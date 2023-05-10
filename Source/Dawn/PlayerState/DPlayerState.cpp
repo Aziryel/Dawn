@@ -3,6 +3,8 @@
 
 #include "DPlayerState.h"
 
+#include "Dawn/PlayerController/DPlayerController.h"
+
 ADPlayerState::ADPlayerState()
 {
 	AbilitySystemComponent = CreateDefaultSubobject<UDAbilitySystemComponent>(TEXT("AbilitySystemComponent"));

@@ -38,6 +38,12 @@ void FDGameplayTags::AddAllTags(UGameplayTagsManager& Manager)
 	AddTag(WeaponTag_Equipped, "WeaponTag.Equipped", "Weapon is equipped");
 	AddTag(WeaponTag_Dropped, "WeaponTag.Dropped", "Weapon is dropped by a character");
 	AddTag(EquippedTag_Sword, "EquippedTag.Sword", "Tag to Equip a Sword Weapon Type");
+	AddTag(AbilityTag_Interaction, "Ability.Interaction", "Tag to activate the Interaction");
+	AddTag(AbilityTag_InteractEnd, "Ability.InteractEnd", "Tag to end the interaction");
+	AddTag(AbilityTag_BlocksInteraction, "Ability.BlocksInteraction", "Tag to block the Interactions");
+	AddTag(StateTag_Dead, "State.Dead", "To indicate the character is dead");
+	AddTag(StateTag_Interaction, "State.Interaction", "Tag to when the player is interacting");
+	AddTag(StateTag_InteractionRemoval, "State.InteractionRemoval", "Tag to use when the Interaction has been completed/cancelled");
 }
 
 void FDGameplayTags::AddTag(FGameplayTag& OutTag, const ANSICHAR* TagName, const ANSICHAR* TagComment)

@@ -22,3 +22,11 @@ void UDCombatComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 
 }
 
+void UDCombatComponent::EquipWeapon(ADWeaponBase* NewWeapon)
+{
+	if (OwnerCharacter && NewWeapon)
+	{
+		
+	}
+}
+

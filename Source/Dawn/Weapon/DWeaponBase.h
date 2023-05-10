@@ -6,6 +6,7 @@
 #include "AbilitySystemInterface.h"
 #include "Dawn/GAS/DAbilitySystemComponent.h"
 #include "Dawn/GAS/DGameplayAbility.h"
+#include "Dawn/Interfaces/DInteractable.h"
 #include "GameFramework/Actor.h"
 #include "DWeaponBase.generated.h"
 
@@ -13,13 +14,16 @@ class UCapsuleComponent;
 class UWidgetComponent;
 
 UCLASS()
-class DAWN_API ADWeaponBase : public AActor, public IAbilitySystemInterface
+class DAWN_API ADWeaponBase : public AActor, public IAbilitySystemInterface, public IDInteractable
 {
 	GENERATED_BODY()
 	
 public:	
 	ADWeaponBase();
 	virtual void Tick(float DeltaTime) override;
+	virtual bool IsAvailableForInteraction_Implementation(UPrimitiveComponent* InteractionComponent) const override;
+	virtual void GetPreInteractSyncType_Implementation(bool& bShouldSync, EAbilityTaskNetSyncType& Type, UPrimitiveComponent* InteractionComponent) const override;
+	virtual float GetInteractionDuration_Implementation(UPrimitiveComponent* InteractionComponent) const override;
 	
 	// Implement IAbilitySystemInterface
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
@@ -29,6 +33,15 @@ public:
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "GAS")
 	FGameplayTag WeaponTag;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Weapon Properties")
+	USkeletalMeshComponent* WeaponMesh;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Weapon Properties")
+	UCapsuleComponent* PickupArea;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Properties | Interaction")
+	float InteractionDuration;
+	
 protected:
 	virtual void BeginPlay() override;
 	
@@ -47,11 +60,6 @@ protected:
 	TArray<FGameplayAbilitySpecHandle> AbilitySpecHandles;
 
 private:
-	UPROPERTY(VisibleAnywhere, Category = "Weapon Properties")
-	USkeletalMeshComponent* WeaponMesh;
-
-	UPROPERTY(VisibleAnywhere, Category = "Weapon Properties")
-	UCapsuleComponent* PickupArea;
 	
 	UPROPERTY(EditAnywhere, Category = "Weapon Properties")
 	UWidgetComponent* PickupWidget;

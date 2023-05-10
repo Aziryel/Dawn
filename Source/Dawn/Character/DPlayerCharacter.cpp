@@ -44,7 +44,8 @@ ADPlayerCharacter::ADPlayerCharacter(const class FObjectInitializer& ObjectIniti
 	// Create a camera boom (pulls in towards the player if there is a collision)
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	CameraBoom->SetupAttachment(RootComponent);
-	CameraBoom->TargetArmLength = 400.0f; // The camera follows at this distance behind the character	
+	CameraBoom->TargetArmLength = 500.0f; // The camera follows at this distance behind the character
+	CameraBoom->SetRelativeLocation(FVector(0.f, 0.f, 50.f));
 	CameraBoom->bUsePawnControlRotation = true; // Rotate the arm based on the controller
 
 	TurnRateGamepad = 45.f;
@@ -55,6 +56,8 @@ ADPlayerCharacter::ADPlayerCharacter(const class FObjectInitializer& ObjectIniti
 
 	CombatComponent = CreateDefaultSubobject<UDCombatComponent>("CombatComponent");
 	CombatComponent->SetIsReplicated(true);
+
+	TraceSourceSocketName = "head";
 }
 
 void ADPlayerCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -63,6 +66,21 @@ void ADPlayerCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Ou
 
 	//DOREPLIFETIME_CONDITION_NOTIFY(ADPlayerCharacter,bInputDisabled,COND_None,REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION(ADPlayerCharacter, OverlappingWeapon, COND_OwnerOnly);
+}
+
+void ADPlayerCharacter::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+
+	if (CombatComponent)
+	{
+		CombatComponent->OwnerCharacter = this;
+	}
+}
+
+FName ADPlayerCharacter::GetSocketNameTraceSource() const
+{
+	return TraceSourceSocketName;
 }
 
 void ADPlayerCharacter::BeginPlay()
@@ -361,6 +379,7 @@ void ADPlayerCharacter::Input_Pause(const FInputActionValue& InputActionValue)
 void ADPlayerCharacter::Input_Interact(const FInputActionValue& InputActionValue)
 {
 	SendLocalInputToASC(true, EDAbilityInputID::Interact);
+	
 	OnInteractActionUse();
 }
 
