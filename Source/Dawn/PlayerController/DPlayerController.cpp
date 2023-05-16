@@ -2,6 +2,8 @@
 
 
 #include "DPlayerController.h"
+
+#include "EnhancedInputSubsystems.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 #include "Dawn/Character/DPlayerCharacter.h"
 #include "Dawn/PlayerState/DPlayerState.h"
@@ -9,6 +11,20 @@
 
 ADPlayerController::ADPlayerController()
 {
+	bReplicates = true;
+}
+
+void ADPlayerController::BeginPlay()
+{
+	Super::BeginPlay();
+	UEnhancedInputLocalPlayerSubsystem* EISubsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
+	check(EISubsystem)
+
+	if (KeyboardMappingContext && GamepadMappingContext)
+	{
+		EISubsystem->AddMappingContext(KeyboardMappingContext, 0);
+		EISubsystem->AddMappingContext(GamepadMappingContext, 0);
+	}
 }
 
 void ADPlayerController::OnRep_PlayerState()
@@ -76,4 +92,5 @@ void ADPlayerController::CreateHUD()
 		UE_LOG(LogTemp, Warning, TEXT("Create Widget!"));
 	}
 }
+
 

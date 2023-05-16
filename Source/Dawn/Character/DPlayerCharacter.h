@@ -145,12 +145,6 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	UDInputConfig* InputConfig;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Input")
-	UInputMappingContext* KeyboardMappingContext;
-	
-	UPROPERTY(EditDefaultsOnly, Category = "Input")
-	UInputMappingContext* GamepadMappingContext;
-
 	bool bASCInputBound;
 
 	/** Handles moving forward/backward */

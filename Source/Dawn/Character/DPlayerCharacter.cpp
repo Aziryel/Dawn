@@ -86,16 +86,6 @@ FName ADPlayerCharacter::GetSocketNameTraceSource() const
 void ADPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-
-	APlayerController* PC = Cast<APlayerController>(GetController());
-	if (PC)
-	{
-		if (UEnhancedInputLocalPlayerSubsystem* EISubsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PC->GetLocalPlayer()))
-		{
-			EISubsystem->AddMappingContext(KeyboardMappingContext, 0);
-			EISubsystem->AddMappingContext(GamepadMappingContext, 0);
-		}
-	}
 	
 }
 
@@ -176,16 +166,6 @@ void ADPlayerCharacter::SendLocalInputToASC(bool bIsPressed, const EDAbilityInpu
 void ADPlayerCharacter::OnRep_PlayerState()
 {
 	Super::OnRep_PlayerState();
-
-	APlayerController* PC = Cast<APlayerController>(GetController());
-	if (PC)
-	{
-		if (UEnhancedInputLocalPlayerSubsystem* EISubsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PC->GetLocalPlayer()))
-		{
-			EISubsystem->AddMappingContext(KeyboardMappingContext, 0);
-			EISubsystem->AddMappingContext(GamepadMappingContext, 0);
-		}
-	}
 	
 	ADPlayerState* PS = GetPlayerState<ADPlayerState>();
 	if (PS)

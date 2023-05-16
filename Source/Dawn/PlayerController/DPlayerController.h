@@ -7,6 +7,8 @@
 #include "GameFramework/PlayerController.h"
 #include "DPlayerController.generated.h"
 
+class UInputMappingContext;
+
 /**
  * 
  */
@@ -30,4 +32,14 @@ public:
 
 	UFUNCTION()
 	void CreateHUD();
+
+protected:
+	virtual void BeginPlay() override;
+
+private:
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	TObjectPtr<UInputMappingContext> KeyboardMappingContext;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	TObjectPtr<UInputMappingContext> GamepadMappingContext;
 };
