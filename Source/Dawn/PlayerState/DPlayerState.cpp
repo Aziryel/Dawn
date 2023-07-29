@@ -3,10 +3,9 @@
 
 #include "DPlayerState.h"
 
-#include "Dawn/PlayerController/DPlayerController.h"
-
 ADPlayerState::ADPlayerState()
 {
+	NetUpdateFrequency = 100.f;
 	AbilitySystemComponent = CreateDefaultSubobject<UDAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
 	AbilitySystemComponent->SetIsReplicated(true);
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
