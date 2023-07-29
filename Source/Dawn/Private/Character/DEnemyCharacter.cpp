@@ -1,8 +1,18 @@
 // Copyright Aziryel
 
 #include "Character/DEnemyCharacter.h"
-
 #include "Dawn/Dawn.h"
+#include "GAS/DAbilitySystemComponent.h"
+#include "GAS/DAttributeSet.h"
+
+ADEnemyCharacter::ADEnemyCharacter(const FObjectInitializer& ObjectInitializer) :
+	Super(ObjectInitializer)
+{
+	AbilitySystemComponent = CreateDefaultSubobject<UDAbilitySystemComponent>("AbilitySystemComponent");
+	AbilitySystemComponent->SetIsReplicated(true);
+
+	Attributes = CreateDefaultSubobject<UDAttributeSet>("AttributeSet");
+}
 
 void ADEnemyCharacter::HighlightActor()
 {

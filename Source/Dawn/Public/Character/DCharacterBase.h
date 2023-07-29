@@ -11,6 +11,7 @@
 #include "DCharacterBase.generated.h"
 
 class ADWeaponBase;
+class UDAttributeSet;
 
 UCLASS()
 class DAWN_API ADCharacterBase : public ACharacter, public IAbilitySystemInterface, public IDInteractable
@@ -75,11 +76,13 @@ protected:
 	// Only called on the Server. Calls before Server's AcknowledgePossession.
 	virtual void PossessedBy(AController* NewController) override;
 
+	// Ability System Component and Attributes are constructed in the PlayerState for the player and in the constructor for the enemies
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GAS|Ability System Component")
-	UDAbilitySystemComponent* AbilitySystemComponent;
+	TObjectPtr<UDAbilitySystemComponent> AbilitySystemComponent;
 
+	// Ability System Component and Attributes are constructed in the PlayerState for the player and in the constructor for the enemies
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GAS|Ability System Component", Replicated)
-	class UDAttributeSet* Attributes;
+	TObjectPtr<UDAttributeSet> Attributes;
 	
 	/* Functions to Add */
 	UFUNCTION()

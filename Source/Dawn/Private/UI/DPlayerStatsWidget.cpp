@@ -98,7 +98,7 @@ void UDPlayerStatsWidget::ModifyStrength()
 	ADPlayerState* PlayerState = Cast<ADPlayerState>(GetOwningPlayerState());
 	if (PlayerState)
 	{
-		PlayerState->AttributeSet->SetStrength(PlayerState->AttributeSet->GetStrength() + 1);
+		PlayerState->GetAttributeSetBase()->SetStrength(PlayerState->GetAttributeSetBase()->GetStrength() + 1);
 	}
 }
 
@@ -107,7 +107,7 @@ void UDPlayerStatsWidget::ModifyDexterity()
 	ADPlayerState* PlayerState = Cast<ADPlayerState>(GetOwningPlayerState());
 	if (PlayerState)
 	{
-		PlayerState->AttributeSet->SetDexterity(PlayerState->AttributeSet->GetDexterity() + 1);
+		PlayerState->GetAttributeSetBase()->SetDexterity(PlayerState->GetAttributeSetBase()->GetDexterity() + 1);
 	}
 }
 
@@ -116,7 +116,7 @@ void UDPlayerStatsWidget::ModifyVitality()
 	ADPlayerState* PlayerState = Cast<ADPlayerState>(GetOwningPlayerState());
 	if (PlayerState)
 	{
-		PlayerState->AttributeSet->SetVitality(PlayerState->AttributeSet->GetVitality() + 1);
+		PlayerState->GetAttributeSetBase()->SetVitality(PlayerState->GetAttributeSetBase()->GetVitality() + 1);
 	}
 }
 
@@ -125,7 +125,7 @@ void UDPlayerStatsWidget::ModifyIntelligence()
 	ADPlayerState* PlayerState = Cast<ADPlayerState>(GetOwningPlayerState());
 	if (PlayerState)
 	{
-		PlayerState->AttributeSet->SetIntelligence(PlayerState->AttributeSet->GetIntelligence() + 1);
+		PlayerState->GetAttributeSetBase()->SetIntelligence(PlayerState->GetAttributeSetBase()->GetIntelligence() + 1);
 	}
 }
 
@@ -134,6 +134,6 @@ void UDPlayerStatsWidget::ModifyWisdom()
 	ADPlayerState* PlayerState = Cast<ADPlayerState>(GetOwningPlayerState());
 	if (PlayerState)
 	{
-		PlayerState->AttributeSet->SetWisdom(PlayerState->AttributeSet->GetWisdom() + 1);
+		PlayerState->GetAttributeSetBase()->SetWisdom(PlayerState->GetAttributeSetBase()->GetWisdom() + 1);
 	}
 }

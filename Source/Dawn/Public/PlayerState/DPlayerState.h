@@ -23,12 +23,6 @@ public:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY()
-	UDAbilitySystemComponent* AbilitySystemComponent;
-
-	UPROPERTY()
-	UDAttributeSet* AttributeSet;
-
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	UDAttributeSet* GetAttributeSetBase() const;
 
@@ -71,5 +65,9 @@ public:
 
 	
 protected:
-	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GAS|Ability System Component")
+	TObjectPtr<UDAbilitySystemComponent> AbilitySystemComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GAS|Ability System Component")
+	TObjectPtr<UDAttributeSet> AttributeSet;
 };

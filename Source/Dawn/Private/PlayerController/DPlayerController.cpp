@@ -325,16 +325,16 @@ void ADPlayerController::CreateHUD()
 		UIPlayerStats = CreateWidget<UDPlayerStatsWidget>(this, UIPlayerStatsClass);
 		UIPlayerStats->AddToViewport();
 		UIPlayerStats->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
-		UIPlayerStats->UpdateText(UIPlayerStats->HealthText, PS->AttributeSet->GetHealth());
-		UIPlayerStats->UpdateProgressBar(UIPlayerStats->HealthBar, PS->AttributeSet->GetHealth(), PS->AttributeSet->GetMaxHealth());
-		UIPlayerStats->UpdateText(UIPlayerStats->ManaText, PS->AttributeSet->GetMana());
-		UIPlayerStats->UpdateProgressBar(UIPlayerStats->ManaBar, PS->AttributeSet->GetMana(), PS->AttributeSet->GetMaxMana());
+		UIPlayerStats->UpdateText(UIPlayerStats->HealthText, PS->GetAttributeSetBase()->GetHealth());
+		UIPlayerStats->UpdateProgressBar(UIPlayerStats->HealthBar, PS->GetAttributeSetBase()->GetHealth(), PS->GetAttributeSetBase()->GetMaxHealth());
+		UIPlayerStats->UpdateText(UIPlayerStats->ManaText, PS->GetAttributeSetBase()->GetMana());
+		UIPlayerStats->UpdateProgressBar(UIPlayerStats->ManaBar, PS->GetAttributeSetBase()->GetMana(), PS->GetAttributeSetBase()->GetMaxMana());
 		// Update Stats
-		UIPlayerStats->UpdateStats(UIPlayerStats->StrText, PS->AttributeSet->GetStrength());
-		UIPlayerStats->UpdateStats(UIPlayerStats->DexText, PS->AttributeSet->GetDexterity());
-		UIPlayerStats->UpdateStats(UIPlayerStats->VitText, PS->AttributeSet->GetVitality());
-		UIPlayerStats->UpdateStats(UIPlayerStats->IntText, PS->AttributeSet->GetIntelligence());
-		UIPlayerStats->UpdateStats(UIPlayerStats->WisText, PS->AttributeSet->GetWisdom());
+		UIPlayerStats->UpdateStats(UIPlayerStats->StrText, PS->GetAttributeSetBase()->GetStrength());
+		UIPlayerStats->UpdateStats(UIPlayerStats->DexText, PS->GetAttributeSetBase()->GetDexterity());
+		UIPlayerStats->UpdateStats(UIPlayerStats->VitText, PS->GetAttributeSetBase()->GetVitality());
+		UIPlayerStats->UpdateStats(UIPlayerStats->IntText, PS->GetAttributeSetBase()->GetIntelligence());
+		UIPlayerStats->UpdateStats(UIPlayerStats->WisText, PS->GetAttributeSetBase()->GetWisdom());
 		UE_LOG(LogTemp, Warning, TEXT("Create Widget!"));
 	}
 }

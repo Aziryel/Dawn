@@ -2,16 +2,16 @@
 
 #include "PlayerState/DPlayerState.h"
 #include "GAS/DAbilitySystemComponent.h"
-#include "GAS/DAttributeSet.h"
 
 ADPlayerState::ADPlayerState()
 {
-	NetUpdateFrequency = 100.f;
 	AbilitySystemComponent = CreateDefaultSubobject<UDAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
 	AbilitySystemComponent->SetIsReplicated(true);
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
 
 	AttributeSet = CreateDefaultSubobject<UDAttributeSet>(TEXT("AttributeSet"));
+	
+	NetUpdateFrequency = 100.f;
 }
 
 void ADPlayerState::BeginPlay()
