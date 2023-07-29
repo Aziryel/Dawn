@@ -13,5 +13,8 @@ UCLASS()
 class DAWN_API ADEnemyCharacter : public ADCharacterBase
 {
 	GENERATED_BODY()
-	
+public:
+	// Implements the abstract classes from IDInteractable
+	virtual void HighlightActor() override;
+	virtual void UnHighlightActor() override;
 };

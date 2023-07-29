@@ -24,6 +24,10 @@ public:
 	virtual bool IsAvailableForInteraction_Implementation(UPrimitiveComponent* InteractionComponent) const override;
 	virtual void GetPreInteractSyncType_Implementation(bool& bShouldSync, EAbilityTaskNetSyncType& Type, UPrimitiveComponent* InteractionComponent) const override;
 	virtual float GetInteractionDuration_Implementation(UPrimitiveComponent* InteractionComponent) const override;
+
+	// Implements the abstract classes from IDInteractable
+	virtual void HighlightActor() override;
+	virtual void UnHighlightActor() override;
 	
 	// Implement IAbilitySystemInterface
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;

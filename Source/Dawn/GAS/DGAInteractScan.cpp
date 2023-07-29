@@ -28,6 +28,11 @@ void UDGAInteractScan::WaitForConfirmation()
 			PlayerCharacter->SetOverlappingWeapon(InteractableWeapon);
 		}
 	}
+
+	if (IDInteractable* InteractableTarget = Cast<IDInteractable>(TargetHitResult.GetActor()))
+	{
+		InteractableTarget->HighlightActor();
+	}
 }
 
 void UDGAInteractScan::LoseInteractTarget()
@@ -35,6 +40,12 @@ void UDGAInteractScan::LoseInteractTarget()
 	if (PlayerCharacter)
 	{
 		PlayerCharacter->SetOverlappingWeapon(nullptr);
+	}
+	FHitResult TargetHitResult = UAbilitySystemBlueprintLibrary::GetHitResultFromTargetData(CurrentTracedTarget, 0);
+	
+	if (ADCharacterBase* InteractableTarget = Cast<ADCharacterBase>(TargetHitResult.GetActor()))
+	{
+		InteractableTarget->UnHighlightActor();
 	}
 }
 

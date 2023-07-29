@@ -13,6 +13,8 @@
 #define COLLISION_PICKUP						ECollisionChannel::ECC_GameTraceChannel4
 #define COLLISION_INTERACTABLE					ECollisionChannel::ECC_GameTraceChannel5
 
+#define CUSTOM_DEPTH_WHITE 250
+
 //Skill Enums
 
 UENUM(BlueprintType)

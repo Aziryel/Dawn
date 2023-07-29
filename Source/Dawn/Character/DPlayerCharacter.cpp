@@ -44,11 +44,11 @@ ADPlayerCharacter::ADPlayerCharacter(const class FObjectInitializer& ObjectIniti
 	// Create a camera boom (pulls in towards the player if there is a collision)
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	CameraBoom->SetupAttachment(RootComponent);
-	CameraBoom->TargetArmLength = 500.0f; // The camera follows at this distance behind the character
+	CameraBoom->TargetArmLength = 750.0f; // The camera follows at this distance behind the character
 	CameraBoom->SetRelativeLocation(FVector(0.f, 0.f, 50.f));
 	CameraBoom->bUsePawnControlRotation = true; // Rotate the arm based on the controller
 
-	TurnRateGamepad = 45.f;
+	/*TurnRateGamepad = 45.f;*/
 
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
@@ -116,7 +116,7 @@ void ADPlayerCharacter::PossessedBy(AController* NewController)
 }
 
 // Called to bind functionality to input
-void ADPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+/*void ADPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	//Super::SetupPlayerInputComponent(PlayerInputComponent);
 
@@ -142,9 +142,9 @@ void ADPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Jump, ETriggerEvent::Triggered, this, &ADPlayerCharacter::Input_Jump);
 	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Pause, ETriggerEvent::Triggered, this, &ADPlayerCharacter::Input_Pause);
 	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Interact, ETriggerEvent::Triggered, this, &ADPlayerCharacter::Input_Interact);
-}
+}*/
 
-void ADPlayerCharacter::SendLocalInputToASC(bool bIsPressed, const EDAbilityInputID AbilityInputID)
+/*void ADPlayerCharacter::SendLocalInputToASC(bool bIsPressed, const EDAbilityInputID AbilityInputID)
 {
 	if (!AbilitySystemComponent)
 	{
@@ -161,7 +161,7 @@ void ADPlayerCharacter::SendLocalInputToASC(bool bIsPressed, const EDAbilityInpu
 		UKismetSystemLibrary::PrintString(this, "We are releasing our input");
 		AbilitySystemComponent->AbilityLocalInputReleased(static_cast<int32>(AbilityInputID));
 	}
-}
+}*/
 
 void ADPlayerCharacter::OnRep_PlayerState()
 {
@@ -182,7 +182,7 @@ void ADPlayerCharacter::OnRep_PlayerState()
 	}
 }
 
-void ADPlayerCharacter::OnPrimaryActionUse()
+/*void ADPlayerCharacter::OnPrimaryActionUse()
 {
 	OnPrimaryAction.Broadcast();
 }
@@ -361,7 +361,7 @@ void ADPlayerCharacter::Input_Interact(const FInputActionValue& InputActionValue
 	SendLocalInputToASC(true, EDAbilityInputID::Interact);
 	
 	OnInteractActionUse();
-}
+}*/
 
 void ADPlayerCharacter::SetOverlappingWeapon(ADWeaponBase* Weapon)
 {
@@ -391,7 +391,7 @@ void ADPlayerCharacter::OnRep_OverlappingWeapon(ADWeaponBase* LastWeapon)
 	}
 }
 
-void ADPlayerCharacter::TurnAtRate(float Rate)
+/*void ADPlayerCharacter::TurnAtRate(float Rate)
 {
 	// calculate delta for this frame from the rate information
 	AddControllerYawInput(Rate * TurnRateGamepad * GetWorld()->GetDeltaSeconds());
@@ -401,4 +401,4 @@ void ADPlayerCharacter::LookUpAtRate(float Rate)
 {
 	// calculate delta for this frame from the rate information
 	AddControllerPitchInput(Rate * TurnRateGamepad * GetWorld()->GetDeltaSeconds());
-}
+}*/

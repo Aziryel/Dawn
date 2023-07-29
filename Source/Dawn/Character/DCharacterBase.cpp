@@ -4,6 +4,7 @@
 #include "DCharacterBase.h"
 
 #include "DCharacterMovementComponent.h"
+#include "Abilities/Tasks/AbilityTask_NetworkSyncPoint.h"
 #include "Components/CapsuleComponent.h"
 #include "Dawn/GAS/DAbilitySystemComponent.h"
 #include "Dawn/GAS/DAttributeSet.h"
@@ -12,6 +13,16 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Net/UnrealNetwork.h"
+
+void ADCharacterBase::HighlightActor()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Target Actor!!"));
+}
+
+void ADCharacterBase::UnHighlightActor()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Untarget Actor!!"));
+}
 
 // Sets default values
 ADCharacterBase::ADCharacterBase(const class FObjectInitializer& ObjectInitializer) :
@@ -22,6 +33,33 @@ ADCharacterBase::ADCharacterBase(const class FObjectInitializer& ObjectInitializ
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 	bAlwaysRelevant = true;
 
+}
+
+bool ADCharacterBase::IsAvailableForInteraction_Implementation(UPrimitiveComponent* InteractionComponent) const
+{
+	if (InteractionComponent == GetCapsuleComponent())
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+void ADCharacterBase::GetPreInteractSyncType_Implementation(bool& bShouldSync, EAbilityTaskNetSyncType& Type,
+	UPrimitiveComponent* InteractionComponent) const
+{
+	if (InteractionComponent == GetCapsuleComponent())
+	{
+		bShouldSync = false;
+		Type = EAbilityTaskNetSyncType::OnlyClientWait;
+	}
+	else
+	{
+		bShouldSync = false;
+		Type = EAbilityTaskNetSyncType::BothWait;
+	}
 }
 
 UAbilitySystemComponent* ADCharacterBase::GetAbilitySystemComponent() const

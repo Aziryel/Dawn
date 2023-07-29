@@ -21,6 +21,11 @@ class DAWN_API IDInteractable
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
+	/* Function to Highlight the Actor when it becomes targeted */
+	virtual void HighlightActor() = 0;
+	/* Function to stop highlighting the actor once it becomes untargeted */
+	virtual void UnHighlightActor() = 0;
+	
 	/**
 	* Is this object available for player interaction at right now?
 	*

@@ -110,6 +110,14 @@ float ADWeaponBase::GetInteractionDuration_Implementation(UPrimitiveComponent* I
 	}
 }
 
+void ADWeaponBase::HighlightActor()
+{
+}
+
+void ADWeaponBase::UnHighlightActor()
+{
+}
+
 UAbilitySystemComponent* ADWeaponBase::GetAbilitySystemComponent() const
 {
 	return AbilitySystemComponent;

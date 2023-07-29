@@ -7,19 +7,26 @@
 #include "Dawn/GAS/DAbilitySystemComponent.h"
 #include "Dawn/GAS/DGameplayAbility.h"
 #include "Dawn/Input/DInputConfig.h"
+#include "Dawn/Interfaces/DInteractable.h"
 #include "GameFramework/Character.h"
 #include "DCharacterBase.generated.h"
 
 class ADWeaponBase;
 
 UCLASS()
-class DAWN_API ADCharacterBase : public ACharacter, public IAbilitySystemInterface
+class DAWN_API ADCharacterBase : public ACharacter, public IAbilitySystemInterface, public IDInteractable
 {
 	GENERATED_BODY()
 
 public:
+	// Implements the abstract classes from IDInteractable
+	virtual void HighlightActor() override;
+	virtual void UnHighlightActor() override;
+	
 	// Sets default values for this character's properties
 	ADCharacterBase(const class FObjectInitializer& ObjectInitializer);
+	virtual bool IsAvailableForInteraction_Implementation(UPrimitiveComponent* InteractionComponent) const override;
+	virtual void GetPreInteractSyncType_Implementation(bool& bShouldSync, EAbilityTaskNetSyncType& Type, UPrimitiveComponent* InteractionComponent) const override;
 
 	// Implement IAbilitySystemInterface
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
