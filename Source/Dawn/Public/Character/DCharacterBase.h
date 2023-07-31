@@ -30,6 +30,7 @@ public:
 
 	// Implement IAbilitySystemInterface
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	UDAttributeSet* GetAttributeSet() const { return Attributes; }
 	
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
