@@ -10,6 +10,7 @@ ADEnemyCharacter::ADEnemyCharacter(const FObjectInitializer& ObjectInitializer) 
 {
 	AbilitySystemComponent = CreateDefaultSubobject<UDAbilitySystemComponent>("AbilitySystemComponent");
 	AbilitySystemComponent->SetIsReplicated(true);
+	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
 
 	Attributes = CreateDefaultSubobject<UDAttributeSet>("AttributeSet");
 }
@@ -26,4 +27,11 @@ void ADEnemyCharacter::UnHighlightActor()
 	Super::UnHighlightActor();
 	GetMesh()->SetCustomDepthStencilValue(0);
 	GetMesh()->SetRenderCustomDepth(false);
+}
+
+void ADEnemyCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	
+	AbilitySystemComponent->InitAbilityActorInfo(this, this);
 }

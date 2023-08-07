@@ -89,19 +89,7 @@ void ADPlayerCharacter::PossessedBy(AController* NewController)
 	Super::PossessedBy(NewController);
 
 	// This is for the Server, the same settings are set on OnRep_PlayerState for Clients in the DPlayerCharacter class
-	ADPlayerState* PS = GetPlayerState<ADPlayerState>();
-	if (PS)
-	{
-		AbilitySystemComponent = Cast<UDAbilitySystemComponent>(PS->GetAbilitySystemComponent());
-		AbilitySystemComponent->InitAbilityActorInfo(this,this);
-		AddCharacterAbilities(CharacterAbilities);
-		Attributes = PS->GetAttributeSetBase();
-		InitializeAttributes();
-
-		SetHealth(Attributes->GetMaxHealth());
-		SetMana(Attributes->GetMaxMana());
-		SetStamina(Attributes->GetMaxStamina());
-	}
+	InitializeASC();
 
 	ADPlayerController* PC = Cast<ADPlayerController>(GetController());
 	if (PC)
@@ -110,253 +98,31 @@ void ADPlayerCharacter::PossessedBy(AController* NewController)
 	}
 }
 
-// Called to bind functionality to input
-/*void ADPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	//Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-	UDEnhancedInputComponent* EnhancedInputComponent = Cast<UDEnhancedInputComponent>(PlayerInputComponent);
-
-	//Make sure to set your input component class in the InputSettings->DefaultClasses
-	check(EnhancedInputComponent);
-	
-	const FDGameplayTags& GameplayTags = FDGameplayTags::Get();
-
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Move, ETriggerEvent::Triggered, this, &ADPlayerCharacter::Input_Move);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Look_Mouse, ETriggerEvent::Triggered, this, &ADPlayerCharacter::Input_Look);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Look_Stick, ETriggerEvent::Triggered, this, &ADPlayerCharacter::Input_Look);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Primary, ETriggerEvent::Triggered, this, &ADPlayerCharacter::Input_Primary);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Secondary, ETriggerEvent::Triggered, this, &ADPlayerCharacter::Input_Secondary);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Ability1, ETriggerEvent::Triggered, this, &ADPlayerCharacter::Input_Ability1);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Ability2, ETriggerEvent::Triggered, this, &ADPlayerCharacter::Input_Ability2);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Ability3, ETriggerEvent::Triggered, this, &ADPlayerCharacter::Input_Ability3);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Ability4, ETriggerEvent::Triggered, this, &ADPlayerCharacter::Input_Ability4);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Ability5, ETriggerEvent::Triggered, this, &ADPlayerCharacter::Input_Ability5);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Ability6, ETriggerEvent::Triggered, this, &ADPlayerCharacter::Input_Ability6);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Ability7, ETriggerEvent::Triggered, this, &ADPlayerCharacter::Input_Ability7);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Jump, ETriggerEvent::Triggered, this, &ADPlayerCharacter::Input_Jump);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Pause, ETriggerEvent::Triggered, this, &ADPlayerCharacter::Input_Pause);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Interact, ETriggerEvent::Triggered, this, &ADPlayerCharacter::Input_Interact);
-}*/
-
-/*void ADPlayerCharacter::SendLocalInputToASC(bool bIsPressed, const EDAbilityInputID AbilityInputID)
-{
-	if (!AbilitySystemComponent)
-	{
-		UKismetSystemLibrary::PrintString(this, "We don't have a valid ASC"); return;
-	}
-
-	if (bIsPressed)
-	{
-		UKismetSystemLibrary::PrintString(this, "We are pressing our input");
-		AbilitySystemComponent->AbilityLocalInputPressed(static_cast<int32>(AbilityInputID));
-	}
-	else
-	{
-		UKismetSystemLibrary::PrintString(this, "We are releasing our input");
-		AbilitySystemComponent->AbilityLocalInputReleased(static_cast<int32>(AbilityInputID));
-	}
-}*/
-
 void ADPlayerCharacter::OnRep_PlayerState()
 {
 	Super::OnRep_PlayerState();
-	
-	ADPlayerState* PS = GetPlayerState<ADPlayerState>();
-	if (PS)
+
+	// This is for the Client
+	InitializeASC();
+}
+
+void ADPlayerCharacter::InitializeASC()
+{
+	ADPlayerState* DawnPlayerState = GetPlayerState<ADPlayerState>();
+	if (DawnPlayerState)
 	{
-		AbilitySystemComponent = Cast<UDAbilitySystemComponent>(PS->GetAbilitySystemComponent());
-		AbilitySystemComponent->InitAbilityActorInfo(this,this);
-		AddCharacterAbilities(CharacterAbilities);
-		Attributes = PS->GetAttributeSetBase();
+		AbilitySystemComponent = DawnPlayerState->GetAbilitySystemComponent();
+		/* Make the Player State the owner actor and the player character the avatar actor */
+		AbilitySystemComponent->InitAbilityActorInfo(DawnPlayerState,this);
+		Attributes = DawnPlayerState->GetAttributeSetBase();
 		InitializeAttributes();
+		AddCharacterAbilities(CharacterAbilities);
 
 		SetHealth(Attributes->GetMaxHealth());
 		SetMana(Attributes->GetMaxMana());
 		SetStamina(Attributes->GetMaxStamina());
 	}
 }
-
-/*void ADPlayerCharacter::OnPrimaryActionUse()
-{
-	OnPrimaryAction.Broadcast();
-}
-
-void ADPlayerCharacter::OnSecondaryActionUse()
-{
-	OnSecondaryAction.Broadcast();
-}
-
-void ADPlayerCharacter::OnWeaponArtUse()
-{
-	OnWeaponArtAction.Broadcast();
-}
-
-void ADPlayerCharacter::OnAbility1ActionUse()
-{
-	OnAbility1Action.Broadcast();
-}
-
-void ADPlayerCharacter::OnAbility2ActionUse()
-{
-	OnAbility2Action.Broadcast();
-}
-
-void ADPlayerCharacter::OnAbility3ActionUse()
-{
-	OnAbility3Action.Broadcast();
-}
-
-void ADPlayerCharacter::OnAbility4ActionUse()
-{
-	OnAbility4Action.Broadcast();
-}
-
-void ADPlayerCharacter::OnAbility5ActionUse()
-{
-	OnAbility5Action.Broadcast();
-}
-
-void ADPlayerCharacter::OnAbility6ActionUse()
-{
-	OnAbility6Action.Broadcast();
-}
-
-void ADPlayerCharacter::OnAbility7ActionUse()
-{
-	OnAbility7Action.Broadcast();
-}
-
-void ADPlayerCharacter::OnInteractActionUse()
-{
-	OnInteractAction.Broadcast();
-}
-
-void ADPlayerCharacter::OnPauseActionUse()
-{
-	OnPauseAction.Broadcast();
-}
-
-void ADPlayerCharacter::Input_Move(const FInputActionValue& InputActionValue)
-{
-	if (Controller != nullptr)
-	{
-		const FVector2D MoveValue = InputActionValue.Get<FVector2D>();
-		const FRotator MovementRotation(0.0f, Controller->GetControlRotation().Yaw, 0.0f);
-
-		if (MoveValue.X != 0.0f)
-		{
-			const FVector MovementDirection = MovementRotation.RotateVector(FVector::RightVector);
-			AddMovementInput(MovementDirection, MoveValue.X);
-		}
-
-		if (MoveValue.Y != 0.0f)
-		{
-			const FVector MovementDirection = MovementRotation.RotateVector(FVector::ForwardVector);
-			AddMovementInput(MovementDirection, MoveValue.Y);
-		}
-	}
-}
-
-void ADPlayerCharacter::Input_Look(const FInputActionValue& InputActionValue)
-{
-	if (Controller != nullptr)
-	{
-		const FVector2D LookValue = InputActionValue.Get<FVector2D>();
-
-		if (LookValue.X != 0.0f)
-		{
-			TurnAtRate(LookValue.X);
-		}
-
-		if (LookValue.Y != 0.0f)
-		{
-			LookUpAtRate(LookValue.Y);
-		}
-	}
-}
-
-void ADPlayerCharacter::Input_Jump(const FInputActionValue& InputActionValue)
-{
-	Jump();
-}
-
-void ADPlayerCharacter::Input_Primary(const FInputActionValue& InputActionValue)
-{
-	SendLocalInputToASC(true, EDAbilityInputID::PrimaryAbility);
-	OnPrimaryActionUse();
-}
-
-void ADPlayerCharacter::Input_Secondary(const FInputActionValue& InputActionValue)
-{
-	SendLocalInputToASC(true, EDAbilityInputID::SecondaryAbility);
-	OnSecondaryActionUse();
-}
-
-void ADPlayerCharacter::Input_WeaponArt(const FInputActionValue& InputActionValue)
-{
-	SendLocalInputToASC(true, EDAbilityInputID::WeaponArt);
-	OnWeaponArtUse();
-}
-
-void ADPlayerCharacter::Input_Ability1(const FInputActionValue& InputActionValue)
-{
-	SendLocalInputToASC(true, EDAbilityInputID::Ability1);
-	OnAbility1ActionUse();
-}
-
-void ADPlayerCharacter::Input_Ability2(const FInputActionValue& InputActionValue)
-{
-	SendLocalInputToASC(true, EDAbilityInputID::Ability2);
-	OnAbility2ActionUse();
-}
-
-void ADPlayerCharacter::Input_Ability3(const FInputActionValue& InputActionValue)
-{
-	SendLocalInputToASC(true, EDAbilityInputID::Ability3);
-	OnAbility3ActionUse();
-}
-
-void ADPlayerCharacter::Input_Ability4(const FInputActionValue& InputActionValue)
-{
-	SendLocalInputToASC(true, EDAbilityInputID::Ability4);
-	OnAbility4ActionUse();
-}
-
-void ADPlayerCharacter::Input_Ability5(const FInputActionValue& InputActionValue)
-{
-	SendLocalInputToASC(true, EDAbilityInputID::Ability5);
-	OnAbility5ActionUse();
-}
-
-void ADPlayerCharacter::Input_Ability6(const FInputActionValue& InputActionValue)
-{
-	SendLocalInputToASC(true, EDAbilityInputID::Ability6);
-	OnAbility6ActionUse();
-}
-
-void ADPlayerCharacter::Input_Ability7(const FInputActionValue& InputActionValue)
-{
-	SendLocalInputToASC(true, EDAbilityInputID::Ability7);
-	OnAbility7ActionUse();
-}
-
-void ADPlayerCharacter::Input_Pause(const FInputActionValue& InputActionValue)
-{
-	ADPlayerController* PlayerController = Cast<ADPlayerController>(GetController());
-	if (PlayerController)
-	{
-		PlayerController->TogglePlayerStats();
-	}
-	OnPauseActionUse();
-}
-
-void ADPlayerCharacter::Input_Interact(const FInputActionValue& InputActionValue)
-{
-	SendLocalInputToASC(true, EDAbilityInputID::Interact);
-	
-	OnInteractActionUse();
-}*/
 
 void ADPlayerCharacter::SetOverlappingWeapon(ADWeaponBase* Weapon)
 {
@@ -385,15 +151,3 @@ void ADPlayerCharacter::OnRep_OverlappingWeapon(ADWeaponBase* LastWeapon)
 		LastWeapon->ShowPickupWidget(false);
 	}
 }
-
-/*void ADPlayerCharacter::TurnAtRate(float Rate)
-{
-	// calculate delta for this frame from the rate information
-	AddControllerYawInput(Rate * TurnRateGamepad * GetWorld()->GetDeltaSeconds());
-}
-
-void ADPlayerCharacter::LookUpAtRate(float Rate)
-{
-	// calculate delta for this frame from the rate information
-	AddControllerPitchInput(Rate * TurnRateGamepad * GetWorld()->GetDeltaSeconds());
-}*/

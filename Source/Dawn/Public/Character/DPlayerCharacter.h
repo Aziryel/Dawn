@@ -17,6 +17,11 @@ public:
 	ADPlayerCharacter(const class FObjectInitializer& ObjectInitializer);
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	virtual void PostInitializeComponents() override;
+
+	// Only called on the Server. Calls before Server's AcknowledgePossession.
+	virtual void PossessedBy(AController* NewController) override;
+	// Client only
+	virtual void OnRep_PlayerState() override;
 	
 	/** Camera boom positioning the camera behind the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
@@ -38,11 +43,6 @@ protected:
 
 	virtual void BeginPlay() override;
 
-	// Only called on the Server. Calls before Server's AcknowledgePossession.
-	virtual void PossessedBy(AController* NewController) override;
-	// Client only
-	virtual void OnRep_PlayerState() override;
-
 public:	
 	UCameraComponent* GetCameraComponent() const { return FollowCamera; }
 	
@@ -59,4 +59,6 @@ private:
 
 	UFUNCTION()
 	void OnRep_OverlappingWeapon(ADWeaponBase* LastWeapon);
+
+	void InitializeASC();
 };

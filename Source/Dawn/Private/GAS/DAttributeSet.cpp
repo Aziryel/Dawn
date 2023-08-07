@@ -2,7 +2,6 @@
 
 
 #include "GAS/DAttributeSet.h"
-
 #include "GameplayEffectExtension.h"
 #include "Character/DCharacterBase.h"
 #include "Net/UnrealNetwork.h"
@@ -12,6 +11,7 @@
 
 UDAttributeSet::UDAttributeSet()
 {
+	
 }
 
 void UDAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
@@ -209,157 +209,157 @@ void UDAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 	
 }
 
-void UDAttributeSet::OnRep_Health(const FGameplayAttributeData& OldHealth)
+void UDAttributeSet::OnRep_Health(const FGameplayAttributeData& OldHealth) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,Health,OldHealth);
 }
 
-void UDAttributeSet::OnRep_MaxHealth(const FGameplayAttributeData& OldMaxHealth)
+void UDAttributeSet::OnRep_MaxHealth(const FGameplayAttributeData& OldMaxHealth) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,MaxHealth,OldMaxHealth);
 }
 
-void UDAttributeSet::OnRep_Mana(const FGameplayAttributeData& OldMana)
+void UDAttributeSet::OnRep_Mana(const FGameplayAttributeData& OldMana) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,Mana,OldMana);
 }
 
-void UDAttributeSet::OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana)
+void UDAttributeSet::OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,MaxMana,OldMaxMana);
 }
 
-void UDAttributeSet::OnRep_Stamina(const FGameplayAttributeData& OldStamina)
+void UDAttributeSet::OnRep_Stamina(const FGameplayAttributeData& OldStamina) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,Stamina,OldStamina);
 }
 
-void UDAttributeSet::OnRep_MaxStamina(const FGameplayAttributeData& OldMaxStamina)
+void UDAttributeSet::OnRep_MaxStamina(const FGameplayAttributeData& OldMaxStamina) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,MaxStamina,OldMaxStamina);
 }
 
-void UDAttributeSet::OnRep_MovementSpeed(const FGameplayAttributeData& OldMovementSpeed)
+void UDAttributeSet::OnRep_MovementSpeed(const FGameplayAttributeData& OldMovementSpeed) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,MovementSpeed,OldMovementSpeed);
 }
 
-void UDAttributeSet::OnRep_AttackSpeed(const FGameplayAttributeData& OldAttackSpeed)
+void UDAttributeSet::OnRep_AttackSpeed(const FGameplayAttributeData& OldAttackSpeed) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,AttackSpeed,OldAttackSpeed);
 }
 
-void UDAttributeSet::OnRep_CritChance(const FGameplayAttributeData& OldCritChance)
+void UDAttributeSet::OnRep_CritChance(const FGameplayAttributeData& OldCritChance) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,CritChance,OldCritChance);
 }
 
-void UDAttributeSet::OnRep_ComboCounter(const FGameplayAttributeData& OldComboCounter)
+void UDAttributeSet::OnRep_ComboCounter(const FGameplayAttributeData& OldComboCounter) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,ComboCounter,OldComboCounter);
 }
 
-void UDAttributeSet::OnRep_Strength(const FGameplayAttributeData& OldStrength)
+void UDAttributeSet::OnRep_Strength(const FGameplayAttributeData& OldStrength) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,Strength,OldStrength);
 }
 
-void UDAttributeSet::OnRep_Dexterity(const FGameplayAttributeData& OldDexterity)
+void UDAttributeSet::OnRep_Dexterity(const FGameplayAttributeData& OldDexterity) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,Dexterity,OldDexterity);
 }
 
-void UDAttributeSet::OnRep_Vitality(const FGameplayAttributeData& OldVitality)
+void UDAttributeSet::OnRep_Vitality(const FGameplayAttributeData& OldVitality) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,Vitality,OldVitality);
 }
 
-void UDAttributeSet::OnRep_Intelligence(const FGameplayAttributeData& OldIntelligence)
+void UDAttributeSet::OnRep_Intelligence(const FGameplayAttributeData& OldIntelligence) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,Intelligence,OldIntelligence);
 }
 
-void UDAttributeSet::OnRep_Wisdom(const FGameplayAttributeData& OldWisdom)
+void UDAttributeSet::OnRep_Wisdom(const FGameplayAttributeData& OldWisdom) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,Wisdom,OldWisdom);
 }
 
-void UDAttributeSet::OnRep_Devotion(const FGameplayAttributeData& OldDevotion)
+void UDAttributeSet::OnRep_Devotion(const FGameplayAttributeData& OldDevotion) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,Devotion,OldDevotion);
 }
 
-void UDAttributeSet::OnRep_Blasphemy(const FGameplayAttributeData& OldBlasphemy)
+void UDAttributeSet::OnRep_Blasphemy(const FGameplayAttributeData& OldBlasphemy) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,Blasphemy,OldBlasphemy);
 }
 
-void UDAttributeSet::OnRep_PlayerLevel(const FGameplayAttributeData& OldPlayerLevel)
+void UDAttributeSet::OnRep_PlayerLevel(const FGameplayAttributeData& OldPlayerLevel) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,PlayerLevel,OldPlayerLevel);
 }
 
-void UDAttributeSet::OnRep_PhysicalPower(const FGameplayAttributeData& OldPhysicalPower)
+void UDAttributeSet::OnRep_PhysicalPower(const FGameplayAttributeData& OldPhysicalPower) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,PhysicalPower,OldPhysicalPower);
 }
 
-void UDAttributeSet::OnRep_MagicalPower(const FGameplayAttributeData& OldMagicalPower)
+void UDAttributeSet::OnRep_MagicalPower(const FGameplayAttributeData& OldMagicalPower) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,MagicalPower,OldMagicalPower);
 }
 
-void UDAttributeSet::OnRep_Armor(const FGameplayAttributeData& OldArmor)
+void UDAttributeSet::OnRep_Armor(const FGameplayAttributeData& OldArmor) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,Armor,OldArmor);
 }
 
-void UDAttributeSet::OnRep_MagicResistance(const FGameplayAttributeData& OldMagicResistance)
+void UDAttributeSet::OnRep_MagicResistance(const FGameplayAttributeData& OldMagicResistance) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,MagicResistance,OldMagicResistance);
 }
 
-void UDAttributeSet::OnRep_FireResistance(const FGameplayAttributeData& OldFireResistance)
+void UDAttributeSet::OnRep_FireResistance(const FGameplayAttributeData& OldFireResistance) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,FireResistance,OldFireResistance);
 }
 
-void UDAttributeSet::OnRep_ColdResistance(const FGameplayAttributeData& OldColdResistance)
+void UDAttributeSet::OnRep_ColdResistance(const FGameplayAttributeData& OldColdResistance) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,ColdResistance,OldColdResistance);
 }
 
-void UDAttributeSet::OnRep_LightningResistance(const FGameplayAttributeData& OldLightningResistance)
+void UDAttributeSet::OnRep_LightningResistance(const FGameplayAttributeData& OldLightningResistance) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,LightningResistance,OldLightningResistance);
 }
 
-void UDAttributeSet::OnRep_HolyResistance(const FGameplayAttributeData& OldHolyResistance)
+void UDAttributeSet::OnRep_HolyResistance(const FGameplayAttributeData& OldHolyResistance) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,HolyResistance,OldHolyResistance);
 }
 
-void UDAttributeSet::OnRep_DarknessResistance(const FGameplayAttributeData& OldDarknessResistance)
+void UDAttributeSet::OnRep_DarknessResistance(const FGameplayAttributeData& OldDarknessResistance) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,DarknessResistance,OldDarknessResistance);
 }
 
-void UDAttributeSet::OnRep_TimeResistance(const FGameplayAttributeData& OldTimeResistance)
+void UDAttributeSet::OnRep_TimeResistance(const FGameplayAttributeData& OldTimeResistance) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,TimeResistance,OldTimeResistance);
 }
 
-void UDAttributeSet::OnRep_Draconium(const FGameplayAttributeData& OldDraconium)
+void UDAttributeSet::OnRep_Draconium(const FGameplayAttributeData& OldDraconium) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,Draconium,OldDraconium);
 }
 
-void UDAttributeSet::OnRep_TimeShards(const FGameplayAttributeData& OldTimeShards)
+void UDAttributeSet::OnRep_TimeShards(const FGameplayAttributeData& OldTimeShards) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,TimeShards,OldTimeShards);
 }
 
-void UDAttributeSet::OnRep_AncientTimeShards(const FGameplayAttributeData& OldAncientTimeShards)
+void UDAttributeSet::OnRep_AncientTimeShards(const FGameplayAttributeData& OldAncientTimeShards) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,AncientTimeShards,OldAncientTimeShards);
 }

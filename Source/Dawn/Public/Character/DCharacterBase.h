@@ -79,7 +79,7 @@ protected:
 
 	// Ability System Component and Attributes are constructed in the PlayerState for the player and in the constructor for the enemies
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GAS|Ability System Component")
-	TObjectPtr<UDAbilitySystemComponent> AbilitySystemComponent;
+	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 
 	// Ability System Component and Attributes are constructed in the PlayerState for the player and in the constructor for the enemies
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GAS|Ability System Component", Replicated)
