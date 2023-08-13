@@ -10,6 +10,7 @@
 #include "Net/UnrealNetwork.h"
 #include "PlayerController/DPlayerController.h"
 #include "PlayerState/DPlayerState.h"
+#include "UI/HUD/DHUD.h"
 #include "Weapon/DWeaponBase.h"
 
 ADPlayerCharacter::ADPlayerCharacter(const class FObjectInitializer& ObjectInitializer) :
@@ -115,12 +116,17 @@ void ADPlayerCharacter::InitializeASC()
 		/* Make the Player State the owner actor and the player character the avatar actor */
 		AbilitySystemComponent->InitAbilityActorInfo(DawnPlayerState,this);
 		Attributes = DawnPlayerState->GetAttributeSetBase();
-		InitializeAttributes();
+		//InitializeAttributes();
 		AddCharacterAbilities(CharacterAbilities);
 
-		SetHealth(Attributes->GetMaxHealth());
-		SetMana(Attributes->GetMaxMana());
-		SetStamina(Attributes->GetMaxStamina());
+		if (ADPlayerController* DPlayerController = Cast<ADPlayerController>(GetController()))
+		{
+			if (ADHUD* DHUD = Cast<ADHUD>(DPlayerController->GetHUD()))
+			{
+				DHUD->InitOverlay(DPlayerController, DawnPlayerState, AbilitySystemComponent, Attributes);
+			}
+		}
+		
 	}
 }
 

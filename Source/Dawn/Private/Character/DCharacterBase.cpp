@@ -97,35 +97,6 @@ bool ADCharacterBase::IsAlive() const
 	return GetHealth() > 0.0f;
 }
 
-void ADCharacterBase::SetHealth(float Health)
-{
-	return Attributes->SetHealth(Health);
-}
-
-void ADCharacterBase::SetMaxHealth(float MaxHealth)
-{
-	return Attributes->SetMaxHealth(MaxHealth);
-}
-
-void ADCharacterBase::SetMana(float Mana)
-{
-	return Attributes->SetMana(Mana);
-}
-
-void ADCharacterBase::SetMaxMana(float MaxMana)
-{
-	return Attributes->SetMaxMana(MaxMana);
-}
-
-void ADCharacterBase::SetStamina(float Stamina)
-{
-	return Attributes->SetStamina(Stamina);
-}
-
-void ADCharacterBase::SetMaxStamina(float MaxStamina)
-{
-	return Attributes->SetMaxStamina(MaxStamina);
-}
 
 void ADCharacterBase::SetMovementSpeed(float Speed) const
 {

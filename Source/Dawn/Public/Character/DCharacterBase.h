@@ -44,19 +44,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "GAS")
 	virtual bool IsAlive() const;
-
-	UFUNCTION(BlueprintCallable)
-	virtual void SetHealth(float Health);
-	UFUNCTION(BlueprintCallable)
-	virtual void SetMaxHealth(float MaxHealth);
-	UFUNCTION(BlueprintCallable)
-	virtual void SetMana(float Mana);
-	UFUNCTION(BlueprintCallable)
-	virtual void SetMaxMana(float MaxMana);
-	UFUNCTION(BlueprintCallable)
-	virtual void SetStamina(float Stamina);
-	UFUNCTION(BlueprintCallable)
-	virtual void SetMaxStamina(float MaxStamina);
+	
 	UFUNCTION(BlueprintCallable, Category = "GAS")
 	void SetMovementSpeed(float Speed) const;
 

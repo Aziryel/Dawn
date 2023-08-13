@@ -11,7 +11,7 @@
 #include "Input/DEnhancedInputComponent.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "PlayerState/DPlayerState.h"
-#include "UI/DPlayerStatsWidget.h"
+#include "UI/Widget/DPlayerStatsWidget.h"
 
 
 ADPlayerController::ADPlayerController()
@@ -309,7 +309,7 @@ void ADPlayerController::TogglePlayerStats()
 
 void ADPlayerController::CreateHUD()
 {
-	if (!IsLocalPlayerController())
+	/*if (!IsLocalPlayerController())
 	{
 		return;
 	}
@@ -336,7 +336,7 @@ void ADPlayerController::CreateHUD()
 		UIPlayerStats->UpdateStats(UIPlayerStats->IntText, PS->GetAttributeSetBase()->GetIntelligence());
 		UIPlayerStats->UpdateStats(UIPlayerStats->WisText, PS->GetAttributeSetBase()->GetWisdom());
 		UE_LOG(LogTemp, Warning, TEXT("Create Widget!"));
-	}
+	}*/
 }
 
 

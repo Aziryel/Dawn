@@ -2,16 +2,24 @@
 
 
 #include "GAS/DAttributeSet.h"
+
+#include "AbilitySystemBlueprintLibrary.h"
 #include "GameplayEffectExtension.h"
 #include "Character/DCharacterBase.h"
 #include "Net/UnrealNetwork.h"
 #include "PlayerController/DPlayerController.h"
 #include "PlayerState/DPlayerState.h"
-#include "UI/DPlayerStatsWidget.h"
+#include "UI/Widget/DPlayerStatsWidget.h"
 
 UDAttributeSet::UDAttributeSet()
 {
-	
+	InitHealth(1000.f);
+	InitMaxHealth(1000.f);
+	InitMana(100.f);
+	InitMaxMana(100.f);
+	InitStamina(1000.f);
+	InitMaxStamina(1000.f); 
+	InitMovementSpeed(500.f);
 }
 
 void UDAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
@@ -36,7 +44,7 @@ void UDAttributeSet::PostAttributeChange(const FGameplayAttribute& Attribute, fl
 {
 	Super::PostAttributeChange(Attribute, OldValue, NewValue);
 	
-	if (!OwningPlayerState)
+	/*if (!OwningPlayerState)
 	{
 		OwningPlayerState = Cast<ADPlayerState>(GetOwningActor());
 	}
@@ -117,44 +125,50 @@ void UDAttributeSet::PostAttributeChange(const FGameplayAttribute& Attribute, fl
 				PlayerController->UIPlayerStats->UpdateStats(PlayerController->UIPlayerStats->WisText, GetWisdom());
 			}
 		}
+	}*/
+}
+
+void UDAttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props) const
+{
+	// Source = causer of the effect, Target = target of the effect (owner of this AS)
+
+	Props.EffectContextHandle = Data.EffectSpec.GetContext();
+	Props.SourceAbilitySystemComponent = Props.EffectContextHandle.GetOriginalInstigatorAbilitySystemComponent();
+
+	if (IsValid(Props.SourceAbilitySystemComponent) && Props.SourceAbilitySystemComponent->AbilityActorInfo.IsValid() && Props.SourceAbilitySystemComponent->AbilityActorInfo->AvatarActor.IsValid())
+	{
+		Props.SourceAvatarActor = Props.SourceAbilitySystemComponent->AbilityActorInfo->AvatarActor.Get();
+		Props.SourceController = Props.SourceAbilitySystemComponent->AbilityActorInfo->PlayerController.Get();
+		if (Props.SourceController == nullptr && Props.SourceAvatarActor != nullptr)
+		{
+			if (const APawn* Pawn = Cast<APawn>(Props.SourceAvatarActor))
+			{
+				Props.SourceController = Pawn->GetController();
+			}
+		}
+		if (Props.SourceController)
+		{
+			Props.SourceCharacter = Cast<ACharacter>(Props.SourceController->GetPawn());
+		}
+	}
+	
+	// Get the Target actor, which should be our owner
+	if (Data.Target.AbilityActorInfo.IsValid() && Data.Target.AbilityActorInfo->AvatarActor.IsValid())
+	{
+		Props.TargetAvatarActor = Data.Target.AbilityActorInfo->AvatarActor.Get();
+		Props.TargetController = Data.Target.AbilityActorInfo->PlayerController.Get();
+		Props.TargetCharacter = Cast<ACharacter>(Props.TargetAvatarActor);
+		Props.TargetAbilitySystemComponent = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Props.TargetAvatarActor);
 	}
 }
 
 void UDAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
 {
 	Super::PostGameplayEffectExecute(Data);
-
-	FGameplayEffectContextHandle Context = Data.EffectSpec.GetContext();
-	UAbilitySystemComponent* Source = Context.GetOriginalInstigatorAbilitySystemComponent();
-	const FGameplayTagContainer& SourceTags = *Data.EffectSpec.CapturedSourceTags.GetAggregatedTags();
-	FGameplayTagContainer SpecAssetTags;
-	Data.EffectSpec.GetAllAssetTags(SpecAssetTags);
-
-	// Get the Target actor, which should be our owner
-	AActor* TargetActor = nullptr;
-	ADCharacterBase* TargetCharacter = nullptr;
-	AController* TargetController = nullptr;
-	if (Data.Target.AbilityActorInfo.IsValid() && Data.Target.AbilityActorInfo->AvatarActor.IsValid())
-	{
-		TargetActor = Data.Target.AbilityActorInfo->AvatarActor.Get();
-		TargetCharacter = Cast<ADCharacterBase>(TargetActor);
-		TargetController = Data.Target.AbilityActorInfo->PlayerController.Get();
-	}
-	AActor* SourceActor = nullptr;
-	AController* SourceController = nullptr;
-	if (Source && Source->AbilityActorInfo.IsValid() && Source->AbilityActorInfo->AvatarActor.IsValid())
-	{
-		SourceActor = Source->AbilityActorInfo->AvatarActor.Get();
-		SourceController = Source->AbilityActorInfo->PlayerController.Get();
-		if (SourceController == nullptr && SourceActor != nullptr)
-		{
-			if (APawn* Pawn = Cast<APawn>(SourceActor))
-			{
-				SourceController = Pawn->GetController();
-			}
-		}
-	}
-
+	
+	FEffectProperties Props;
+	SetEffectProperties(Data, Props);
+	
 	// TODO: ShowDamageNumber for the target receiving or healing damage
 
 	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
