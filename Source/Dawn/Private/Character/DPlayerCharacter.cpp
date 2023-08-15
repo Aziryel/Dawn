@@ -115,6 +115,7 @@ void ADPlayerCharacter::InitializeASC()
 		AbilitySystemComponent = DawnPlayerState->GetAbilitySystemComponent();
 		/* Make the Player State the owner actor and the player character the avatar actor */
 		AbilitySystemComponent->InitAbilityActorInfo(DawnPlayerState,this);
+		Cast<UDAbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
 		Attributes = DawnPlayerState->GetAttributeSetBase();
 		//InitializeAttributes();
 		AddCharacterAbilities(CharacterAbilities);

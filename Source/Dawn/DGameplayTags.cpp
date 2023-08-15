@@ -44,6 +44,12 @@ void FDGameplayTags::AddAllTags(UGameplayTagsManager& Manager)
 	AddTag(StateTag_Dead, "State.Dead", "To indicate the character is dead");
 	AddTag(StateTag_Interaction, "State.Interaction", "Tag to when the player is interacting");
 	AddTag(StateTag_InteractionRemoval, "State.InteractionRemoval", "Tag to use when the Interaction has been completed/cancelled");
+	AddTag(VitalAttributesTag_Health, "Attributes.Vital.Health", "Amount of damage to take before death");
+	AddTag(VitalAttributesTag_MaxHealth, "Attributes.Vital.MaxHealth", "Amount of damage to take before death");
+	AddTag(VitalAttributesTag_Mana, "Attributes.Vital.Mana", "Resource to cast spells");
+	AddTag(VitalAttributesTag_MaxMana, "Attributes.Vital.MaxMana", "Limit for the resource to cast spells");
+	AddTag(VitalAttributesTag_Stamina, "Attributes.Vital.Stamina", "Limit for the resource to perform actions");
+	AddTag(VitalAttributesTag_MaxStamina, "Attributes.Vital.MaxStamina", "Resource to perform actions");
 }
 
 void FDGameplayTags::AddTag(FGameplayTag& OutTag, const ANSICHAR* TagName, const ANSICHAR* TagComment)

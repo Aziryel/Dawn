@@ -76,5 +76,7 @@ protected:
 	/* Functions to Add */
 	UFUNCTION()
 	void AddCharacterAbilities(TArray<TSubclassOf<UDGameplayAbility>> AbilitiesToAdd);
+
+	virtual void InitializeASC();
 	
 };

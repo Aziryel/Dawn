@@ -197,3 +197,7 @@ void ADCharacterBase::AddCharacterAbilities(TArray<TSubclassOf<UDGameplayAbility
 		UE_LOG(LogTemp, Warning, TEXT("Ability Name : %s"), *StartupAbility.GetDefaultObject()->GetName());
 	}
 }
+
+void ADCharacterBase::InitializeASC()
+{
+}

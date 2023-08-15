@@ -38,6 +38,12 @@ public:
 	FGameplayTag StateTag_Dead;
 	FGameplayTag StateTag_Interaction;
 	FGameplayTag StateTag_InteractionRemoval;
+	FGameplayTag VitalAttributesTag_Health;
+	FGameplayTag VitalAttributesTag_MaxHealth;
+	FGameplayTag VitalAttributesTag_Mana;
+	FGameplayTag VitalAttributesTag_MaxMana;
+	FGameplayTag VitalAttributesTag_Stamina;
+	FGameplayTag VitalAttributesTag_MaxStamina;
 
 protected:
 

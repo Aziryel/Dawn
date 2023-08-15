@@ -60,5 +60,5 @@ private:
 	UFUNCTION()
 	void OnRep_OverlappingWeapon(ADWeaponBase* LastWeapon);
 
-	void InitializeASC();
+	void InitializeASC() override;
 };

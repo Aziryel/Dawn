@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Dawn/Dawn.h"
 #include "UI/Widget/DPlayerStatsWidget.h"
 #include "GameFramework/PlayerController.h"
 #include "DPlayerController.generated.h"

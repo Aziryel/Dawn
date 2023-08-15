@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Blueprint/UserWidget.h"
+#include "CommonActivatableWidget.h"
 #include "DUserWidget.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class DAWN_API UDUserWidget : public UUserWidget
+class DAWN_API UDUserWidget : public UCommonActivatableWidget
 {
 	GENERATED_BODY()
 public:

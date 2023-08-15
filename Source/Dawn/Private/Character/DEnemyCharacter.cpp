@@ -32,6 +32,12 @@ void ADEnemyCharacter::UnHighlightActor()
 void ADEnemyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	InitializeASC();
+}
+
+void ADEnemyCharacter::InitializeASC()
+{
 	AbilitySystemComponent->InitAbilityActorInfo(this, this);
+	Cast<UDAbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
 }
