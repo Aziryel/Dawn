@@ -3,6 +3,7 @@
 
 #include "UI/WidgetController/OverlayWidgetController.h"
 
+#include "GAS/DAbilitySystemComponent.h"
 #include "GAS/DAttributeSet.h"
 
 void UOverlayWidgetController::BroadcastInitialValues()
@@ -22,47 +23,61 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 	const UDAttributeSet* DAttributeSet = CastChecked<UDAttributeSet>(AttributeSet);
 
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
-		DAttributeSet->GetHealthAttribute()).AddUObject(this, &UOverlayWidgetController::HealthChanged);
+		DAttributeSet->GetHealthAttribute()).AddLambda(
+			[this](const FOnAttributeChangeData& Data)
+			{
+				OnHealthChanged.Broadcast(Data.NewValue);
+			}
+		);
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
-		DAttributeSet->GetMaxHealthAttribute()).AddUObject(this, &UOverlayWidgetController::MaxHealthChanged);
+		DAttributeSet->GetMaxHealthAttribute()).AddLambda(
+			[this](const FOnAttributeChangeData& Data)
+			{
+				OnMaxHealthChanged.Broadcast(Data.NewValue);
+			}
+	);
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
-		DAttributeSet->GetManaAttribute()).AddUObject(this, &UOverlayWidgetController::ManaChanged);
+		DAttributeSet->GetManaAttribute()).AddLambda(
+			[this](const FOnAttributeChangeData& Data)
+			{
+				OnManaChanged.Broadcast(Data.NewValue);
+			}
+	);
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
-		DAttributeSet->GetMaxManaAttribute()).AddUObject(this, &UOverlayWidgetController::MaxManaChanged);
+		DAttributeSet->GetMaxManaAttribute()).AddLambda(
+			[this](const FOnAttributeChangeData& Data)
+			{
+				OnMaxManaChanged.Broadcast(Data.NewValue);
+			}
+	);
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
-		DAttributeSet->GetStaminaAttribute()).AddUObject(this, &UOverlayWidgetController::StaminaChanged);
+		DAttributeSet->GetStaminaAttribute()).AddLambda(
+			[this](const FOnAttributeChangeData& Data)
+			{
+				OnStaminaChanged.Broadcast(Data.NewValue);
+			}
+	);
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
-		DAttributeSet->GetMaxStaminaAttribute()).AddUObject(this, &UOverlayWidgetController::MaxStaminaChanged);
-}
+		DAttributeSet->GetMaxStaminaAttribute()).AddLambda(
+			[this](const FOnAttributeChangeData& Data)
+			{
+				OnMaxStaminaChanged.Broadcast(Data.NewValue);
+			}
+	);
 
-void UOverlayWidgetController::HealthChanged(const FOnAttributeChangeData& Data) const 
-{
-	OnHealthChanged.Broadcast(Data.NewValue);
-}
+	Cast<UDAbilitySystemComponent>(AbilitySystemComponent)->EffectAssetTags.AddLambda(
+		[this](const FGameplayTagContainer& AssetTags)
+		{
+			for (const FGameplayTag& Tag : AssetTags)
+			{
+				FGameplayTag MessageTag = FGameplayTag::RequestGameplayTag(FName("Message"));
 
-void UOverlayWidgetController::MaxHealthChanged(const FOnAttributeChangeData& Data) const 
-{
-	OnMaxHealthChanged.Broadcast(Data.NewValue);
-}
-
-void UOverlayWidgetController::ManaChanged(const FOnAttributeChangeData& Data) const
-{
-	OnManaChanged.Broadcast(Data.NewValue);
-}
-
-void UOverlayWidgetController::MaxManaChanged(const FOnAttributeChangeData& Data) const
-{
-	
-	OnMaxManaChanged.Broadcast(Data.NewValue);
-}
-
-void UOverlayWidgetController::StaminaChanged(const FOnAttributeChangeData& Data) const
-{
-	
-	OnStaminaChanged.Broadcast(Data.NewValue);
-}
-
-void UOverlayWidgetController::MaxStaminaChanged(const FOnAttributeChangeData& Data) const
-{
-	OnMaxStaminaChanged.Broadcast(Data.NewValue);
+				if (Tag.MatchesTag(MessageTag))
+				{
+					const FUIWidgetRow* Row = GetDataTableRowByTag<FUIWidgetRow>(MessageWidgetDataTable, Tag);
+					MessageWidgetRowDelegate.Broadcast(*Row);
+				}
+			}
+		}
+	);
 }

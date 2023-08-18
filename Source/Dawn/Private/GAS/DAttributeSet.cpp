@@ -7,9 +7,7 @@
 #include "GameplayEffectExtension.h"
 #include "Character/DCharacterBase.h"
 #include "Net/UnrealNetwork.h"
-#include "PlayerController/DPlayerController.h"
 #include "PlayerState/DPlayerState.h"
-#include "UI/Widget/DPlayerStatsWidget.h"
 
 UDAttributeSet::UDAttributeSet()
 {
@@ -44,88 +42,6 @@ void UDAttributeSet::PostAttributeChange(const FGameplayAttribute& Attribute, fl
 {
 	Super::PostAttributeChange(Attribute, OldValue, NewValue);
 	
-	/*if (!OwningPlayerState)
-	{
-		OwningPlayerState = Cast<ADPlayerState>(GetOwningActor());
-	}
-	if (!PlayerController && OwningPlayerState)
-	{
-		PlayerController = Cast<ADPlayerController>(OwningPlayerState->GetPlayerController());
-	}
-	
-	if (Attribute == GetHealthAttribute() || Attribute == GetMaxHealthAttribute())
-	{
-		if (OwningPlayerState)
-		{
-			if (PlayerController && PlayerController->UIPlayerStats)
-			{
-				PlayerController->UIPlayerStats->UpdateText(PlayerController->UIPlayerStats->HealthText, GetHealth());
-				PlayerController->UIPlayerStats->UpdateProgressBar(PlayerController->UIPlayerStats->HealthBar, GetHealth(), GetMaxHealth());
-			}
-		}
-	}
-	if (Attribute == GetManaAttribute() || Attribute == GetMaxManaAttribute())
-	{
-		if (OwningPlayerState)
-		{
-			if (PlayerController && PlayerController->UIPlayerStats)
-			{
-				PlayerController->UIPlayerStats->UpdateText(PlayerController->UIPlayerStats->ManaText, GetMana());
-				PlayerController->UIPlayerStats->UpdateProgressBar(PlayerController->UIPlayerStats->ManaBar, GetMana(), GetMaxMana());
-			}
-		}
-	}
-	//TODO: Stamina
-	if (Attribute == GetStrengthAttribute())
-	{
-		if (OwningPlayerState)
-		{
-			if (PlayerController && PlayerController->UIPlayerStats)
-			{
-				PlayerController->UIPlayerStats->UpdateStats(PlayerController->UIPlayerStats->StrText, GetStrength());
-			}
-		}
-	}
-	if (Attribute == GetDexterityAttribute())
-	{
-		if (OwningPlayerState)
-		{
-			if (PlayerController && PlayerController->UIPlayerStats)
-			{
-				PlayerController->UIPlayerStats->UpdateStats(PlayerController->UIPlayerStats->DexText, GetDexterity());
-			}
-		}
-	}
-	if (Attribute == GetVitalityAttribute())
-	{
-		if (OwningPlayerState)
-		{
-			if (PlayerController && PlayerController->UIPlayerStats)
-			{
-				PlayerController->UIPlayerStats->UpdateStats(PlayerController->UIPlayerStats->VitText, GetVitality());
-			}
-		}
-	}
-	if (Attribute == GetIntelligenceAttribute())
-	{
-		if (OwningPlayerState)
-		{
-			if (PlayerController && PlayerController->UIPlayerStats)
-			{
-				PlayerController->UIPlayerStats->UpdateStats(PlayerController->UIPlayerStats->IntText, GetIntelligence());
-			}
-		}
-	}
-	if (Attribute == GetWisdomAttribute())
-	{
-		if (OwningPlayerState)
-		{
-			if (PlayerController && PlayerController->UIPlayerStats)
-			{
-				PlayerController->UIPlayerStats->UpdateStats(PlayerController->UIPlayerStats->WisText, GetWisdom());
-			}
-		}
-	}*/
 }
 
 void UDAttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props) const
@@ -173,15 +89,15 @@ void UDAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackD
 
 	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
 	{
-		SetHealth(FMath::Clamp(GetHealth(), 0.0f, GetMaxHealth()));
+		SetHealth(FMath::Clamp(GetHealth(), 0.f, GetMaxHealth()));
 	}
 	if (Data.EvaluatedData.Attribute == GetManaAttribute())
 	{
-		SetMana(FMath::Clamp(GetMana(), 0.0f, GetMaxMana()));
+		SetMana(FMath::Clamp(GetMana(), 0.f, GetMaxMana()));
 	}
 	if (Data.EvaluatedData.Attribute == GetStaminaAttribute())
 	{
-		SetStamina(FMath::Clamp(GetStamina(), 0.0f, GetMaxStamina()));
+		SetStamina(FMath::Clamp(GetStamina(), 0.f, GetMaxStamina()));
 	}
 }
 

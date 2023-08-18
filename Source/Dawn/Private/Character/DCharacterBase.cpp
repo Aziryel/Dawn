@@ -69,86 +69,18 @@ void ADCharacterBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 	DOREPLIFETIME(ADCharacterBase, Attributes);
 }
 
-void ADCharacterBase::InitializeAttributes()
+void ADCharacterBase::InitializePrimaryAttributes() const
 {
-	if (!IsValid(AbilitySystemComponent))
-	{
-		return;
-	}
-
-	if (!DefaultAttributes)
-	{
-		return;
-	}
-
-	// Can run on Server and Client
-	FGameplayEffectContextHandle EffectContext = AbilitySystemComponent->MakeEffectContext();
-	EffectContext.AddSourceObject(this);
-
-	FGameplayEffectSpecHandle NewHandle = AbilitySystemComponent->MakeOutgoingSpec(DefaultAttributes, 1, EffectContext);
-	if (NewHandle.IsValid())
-	{
-		FActiveGameplayEffectHandle ActiveGEHandle = AbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*NewHandle.Data.Get(), AbilitySystemComponent);
-	}
+	check(IsValid(GetAbilitySystemComponent()));
+	check(DefaultPrimaryAttributes);
+	const FGameplayEffectContextHandle ContextHandle = GetAbilitySystemComponent()->MakeEffectContext();
+	const FGameplayEffectSpecHandle SpecHandle = GetAbilitySystemComponent()->MakeOutgoingSpec(DefaultPrimaryAttributes, 1.f, ContextHandle);
+	GetAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(), GetAbilitySystemComponent());
 }
 
 bool ADCharacterBase::IsAlive() const
 {
-	return GetHealth() > 0.0f;
-}
-
-
-void ADCharacterBase::SetMovementSpeed(float Speed) const
-{
-	if (Attributes)
-	{
-		return Attributes->SetMovementSpeed(Speed);
-	}
-}
-
-float ADCharacterBase::GetHealth() const
-{
-	if (Attributes)
-	{
-		return Attributes->GetHealth();
-	}
-	return 0.0f;
-}
-
-float ADCharacterBase::GetMana() const
-{
-	if (Attributes)
-	{
-		return Attributes->GetMana();
-	}
-	return 0.0f;
-}
-
-float ADCharacterBase::GetStamina() const
-{
-	if (Attributes)
-	{
-		return Attributes->GetStamina();
-	}
-	return 0.0f;
-}
-
-float ADCharacterBase::GetMovementSpeed() const
-{
-	if (Attributes)
-	{
-		return Attributes->GetMovementSpeed();
-	}
-	return 0.0f;
-}
-
-float ADCharacterBase::GetAttackSpeed() const
-{
-	if (Attributes)
-	{
-		return Attributes->GetAttackSpeed();
-	}
-	return 0.0f;
+	return Attributes->GetHealth() > 0.0f;
 }
 
 // Called when the game starts or when spawned
@@ -161,26 +93,6 @@ void ADCharacterBase::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 	
-	 /*// This is for the Server, the same settings are set on OnRep_PlayerState for Clients in the DPlayerCharacter class
-	ADPlayerState* PS = GetPlayerState<ADPlayerState>();
-	if (PS)
-	{
-		AbilitySystemComponent = Cast<UDAbilitySystemComponent>(PS->GetAbilitySystemComponent());
-		AbilitySystemComponent->InitAbilityActorInfo(this,this);
-		AddCharacterAbilities(CharacterAbilities);
-		Attributes = PS->GetAttributeSetBase();
-		InitializeAttributes();
-
-		SetHealth(Attributes->GetMaxHealth());
-		SetMana(Attributes->GetMaxMana());
-		SetStamina(Attributes->GetMaxStamina());
-	}
-
-	ADPlayerController* PC = Cast<ADPlayerController>(GetController());
-	if (PC)
-	{
-		PC->CreateHUD();
-	}*/
 }
 
 void ADCharacterBase::AddCharacterAbilities(TArray<TSubclassOf<UDGameplayAbility>> AbilitiesToAdd)

@@ -117,7 +117,6 @@ void ADPlayerCharacter::InitializeASC()
 		AbilitySystemComponent->InitAbilityActorInfo(DawnPlayerState,this);
 		Cast<UDAbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
 		Attributes = DawnPlayerState->GetAttributeSetBase();
-		//InitializeAttributes();
 		AddCharacterAbilities(CharacterAbilities);
 
 		if (ADPlayerController* DPlayerController = Cast<ADPlayerController>(GetController()))
@@ -127,7 +126,7 @@ void ADPlayerCharacter::InitializeASC()
 				DHUD->InitOverlay(DPlayerController, DawnPlayerState, AbilitySystemComponent, Attributes);
 			}
 		}
-		
+		InitializePrimaryAttributes();
 	}
 }
 

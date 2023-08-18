@@ -2,6 +2,7 @@
 
 #include "Character/DCharacterMovementComponent.h"
 #include "Character/DCharacterBase.h"
+#include "GAS/DAttributeSet.h"
 
 float UDCharacterMovementComponent::GetMaxSpeed() const
 {
@@ -13,8 +14,12 @@ float UDCharacterMovementComponent::GetMaxSpeed() const
 
 	if (!Owner->IsAlive())
 	{
-		return 0.0f;
+		return 0.f;
 	}
-	
-	return Owner->GetMovementSpeed();
+	if (Owner->GetAttributeSet())
+	{
+		return Owner->GetAttributeSet()->GetMovementSpeed();
+	}
+
+	return 0.f;
 }

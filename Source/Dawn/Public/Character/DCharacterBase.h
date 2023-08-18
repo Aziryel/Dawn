@@ -37,27 +37,8 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "GAS|Default Gameplay Settings")
 	TArray<TSubclassOf<UDGameplayAbility>> CharacterAbilities;
 
-	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="GAS|Default Gameplay Settings")
-	TSubclassOf<UGameplayEffect> DefaultAttributes;
-
-	virtual void InitializeAttributes();
-
 	UFUNCTION(BlueprintCallable, Category = "GAS")
 	virtual bool IsAlive() const;
-	
-	UFUNCTION(BlueprintCallable, Category = "GAS")
-	void SetMovementSpeed(float Speed) const;
-
-	UFUNCTION(BlueprintCallable, Category = "GAS")
-	float GetHealth() const;
-	UFUNCTION(BlueprintCallable, Category = "GAS")
-	float GetMana() const;
-	UFUNCTION(BlueprintCallable, Category = "GAS")
-	float GetStamina() const;
-	UFUNCTION(BlueprintCallable, Category = "GAS")
-	float GetMovementSpeed() const;
-	UFUNCTION(BlueprintCallable, Category = "GAS")
-	float GetAttackSpeed() const;
 
 protected:
 	virtual void BeginPlay() override;
@@ -72,6 +53,11 @@ protected:
 	// Ability System Component and Attributes are constructed in the PlayerState for the player and in the constructor for the enemies
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GAS|Ability System Component", Replicated)
 	TObjectPtr<UDAttributeSet> Attributes;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category="Attributes")
+	TSubclassOf<UGameplayEffect> DefaultPrimaryAttributes;
+	
+	void InitializePrimaryAttributes() const;
 	
 	/* Functions to Add */
 	UFUNCTION()
