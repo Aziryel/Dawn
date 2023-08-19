@@ -29,6 +29,11 @@ void ADEnemyCharacter::UnHighlightActor()
 	GetMesh()->SetRenderCustomDepth(false);
 }
 
+int32 ADEnemyCharacter::GetPlayerLevel()
+{
+	return Level;
+}
+
 void ADEnemyCharacter::BeginPlay()
 {
 	Super::BeginPlay();

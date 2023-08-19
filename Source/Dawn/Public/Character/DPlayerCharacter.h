@@ -22,6 +22,10 @@ public:
 	virtual void PossessedBy(AController* NewController) override;
 	// Client only
 	virtual void OnRep_PlayerState() override;
+
+	/** Combat Interface */
+	virtual int32 GetPlayerLevel() override;
+	/** End Combat Interface */
 	
 	/** Camera boom positioning the camera behind the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)

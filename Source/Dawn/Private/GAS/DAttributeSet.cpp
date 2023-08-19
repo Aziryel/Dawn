@@ -11,13 +11,7 @@
 
 UDAttributeSet::UDAttributeSet()
 {
-	InitHealth(1000.f);
-	InitMaxHealth(1000.f);
-	InitMana(100.f);
-	InitMaxMana(100.f);
-	InitStamina(1000.f);
-	InitMaxStamina(1000.f); 
-	InitMovementSpeed(500.f);
+	
 }
 
 void UDAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
@@ -104,28 +98,44 @@ void UDAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackD
 void UDAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-	
+
+	// Vital Attributes
 	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,Health,COND_None,REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,MaxHealth,COND_None,REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,Mana,COND_None,REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,MaxMana,COND_None,REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,Stamina,COND_None,REPNOTIFY_Always);
+
+	// Primary Attributes
+	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,Strength,COND_None,REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,Dexterity,COND_None,REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,Vitality,COND_None,REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,Speed,COND_None,REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,Intelligence,COND_None,REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,Wisdom,COND_None,REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,Luck,COND_None,REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,Devotion,COND_None,REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,Blasphemy,COND_None,REPNOTIFY_Always);
+	
+	// Secondary Attributes
+	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,MaxHealth,COND_None,REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,MaxMana,COND_None,REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,MaxStamina,COND_None,REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,MovementSpeed,COND_None,REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,AttackSpeed,COND_None,REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,CritChance,COND_None,REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,ComboCounter,COND_None,REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,Strength,COND_None,REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,Dexterity,COND_None,REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,Vitality,COND_None,REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,Intelligence,COND_None,REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,Wisdom,COND_None,REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,Devotion,COND_None,REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,Blasphemy,COND_None,REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,PlayerLevel,COND_None,REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,PhysicalPower,COND_None,REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,MagicalPower,COND_None,REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,HealingPower,COND_None,REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,DivinePower,COND_None,REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,BlasphemousPower,COND_None,REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,Armor,COND_None,REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,HealthRegeneration,COND_None,REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,ManaRegeneration,COND_None,REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,BlockChance,COND_None,REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,CritResistance,COND_None,REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,CritDamage,COND_None,REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,ArmorPenetration,COND_None,REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,ItemDiscovery,COND_None,REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,MagicResistance,COND_None,REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,FireResistance,COND_None,REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,ColdResistance,COND_None,REPNOTIFY_Always);
@@ -133,6 +143,8 @@ void UDAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,HolyResistance,COND_None,REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,DarknessResistance,COND_None,REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,TimeResistance,COND_None,REPNOTIFY_Always);
+
+	// Currency Attributes
 	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,Draconium,COND_None,REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,TimeShards,COND_None,REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UDAttributeSet,AncientTimeShards,COND_None,REPNOTIFY_Always);
@@ -204,6 +216,11 @@ void UDAttributeSet::OnRep_Vitality(const FGameplayAttributeData& OldVitality) c
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,Vitality,OldVitality);
 }
 
+void UDAttributeSet::OnRep_Speed(const FGameplayAttributeData& OldSpeed) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,Speed,OldSpeed);
+}
+
 void UDAttributeSet::OnRep_Intelligence(const FGameplayAttributeData& OldIntelligence) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,Intelligence,OldIntelligence);
@@ -212,6 +229,11 @@ void UDAttributeSet::OnRep_Intelligence(const FGameplayAttributeData& OldIntelli
 void UDAttributeSet::OnRep_Wisdom(const FGameplayAttributeData& OldWisdom) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,Wisdom,OldWisdom);
+}
+
+void UDAttributeSet::OnRep_Luck(const FGameplayAttributeData& OldLuck) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,Luck,OldLuck);
 }
 
 void UDAttributeSet::OnRep_Devotion(const FGameplayAttributeData& OldDevotion) const
@@ -224,11 +246,6 @@ void UDAttributeSet::OnRep_Blasphemy(const FGameplayAttributeData& OldBlasphemy)
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,Blasphemy,OldBlasphemy);
 }
 
-void UDAttributeSet::OnRep_PlayerLevel(const FGameplayAttributeData& OldPlayerLevel) const
-{
-	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,PlayerLevel,OldPlayerLevel);
-}
-
 void UDAttributeSet::OnRep_PhysicalPower(const FGameplayAttributeData& OldPhysicalPower) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,PhysicalPower,OldPhysicalPower);
@@ -239,9 +256,59 @@ void UDAttributeSet::OnRep_MagicalPower(const FGameplayAttributeData& OldMagical
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,MagicalPower,OldMagicalPower);
 }
 
+void UDAttributeSet::OnRep_HealingPower(const FGameplayAttributeData& OldHealingPower) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,HealingPower,OldHealingPower);
+}
+
+void UDAttributeSet::OnRep_DivinePower(const FGameplayAttributeData& OldDivinePower) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,DivinePower,OldDivinePower);
+}
+
+void UDAttributeSet::OnRep_BlasphemousPower(const FGameplayAttributeData& OldBlasphemousPower) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,BlasphemousPower,OldBlasphemousPower);
+}
+
 void UDAttributeSet::OnRep_Armor(const FGameplayAttributeData& OldArmor) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,Armor,OldArmor);
+}
+
+void UDAttributeSet::OnRep_HealthRegeneration(const FGameplayAttributeData& OldHealthRegeneration) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,HealthRegeneration,OldHealthRegeneration);
+}
+
+void UDAttributeSet::OnRep_ManaRegeneration(const FGameplayAttributeData& OldManaRegeneration) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,ManaRegeneration,OldManaRegeneration);
+}
+
+void UDAttributeSet::OnRep_BlockChance(const FGameplayAttributeData& OldBlockChance) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,BlockChance,OldBlockChance);
+}
+
+void UDAttributeSet::OnRep_CritResistance(const FGameplayAttributeData& OldCritResistance) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,CritResistance,OldCritResistance);
+}
+
+void UDAttributeSet::OnRep_CritDamage(const FGameplayAttributeData& OldCritDamage) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,CritDamage,OldCritDamage);
+}
+
+void UDAttributeSet::OnRep_ArmorPenetration(const FGameplayAttributeData& OldArmorPenetration) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,ArmorPenetration,OldArmorPenetration);
+}
+
+void UDAttributeSet::OnRep_ItemDiscovery(const FGameplayAttributeData& OldItemDiscovery) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UDAttributeSet,ItemDiscovery,OldItemDiscovery);
 }
 
 void UDAttributeSet::OnRep_MagicResistance(const FGameplayAttributeData& OldMagicResistance) const

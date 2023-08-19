@@ -107,6 +107,13 @@ void ADPlayerCharacter::OnRep_PlayerState()
 	InitializeASC();
 }
 
+int32 ADPlayerCharacter::GetPlayerLevel()
+{
+	const ADPlayerState* DawnPlayerState = GetPlayerState<ADPlayerState>();
+	check(DawnPlayerState);
+	return DawnPlayerState->GetPlayerLevel();
+}
+
 void ADPlayerCharacter::InitializeASC()
 {
 	ADPlayerState* DawnPlayerState = GetPlayerState<ADPlayerState>();
@@ -126,7 +133,7 @@ void ADPlayerCharacter::InitializeASC()
 				DHUD->InitOverlay(DPlayerController, DawnPlayerState, AbilitySystemComponent, Attributes);
 			}
 		}
-		InitializePrimaryAttributes();
+		InitializeDefaultAttributes();
 	}
 }
 

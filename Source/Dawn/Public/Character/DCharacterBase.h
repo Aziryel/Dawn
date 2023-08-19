@@ -8,13 +8,14 @@
 #include "GAS/DGameplayAbility.h"
 #include "Interfaces/DInteractable.h"
 #include "GameFramework/Character.h"
+#include "Interfaces/CombatInterface.h"
 #include "DCharacterBase.generated.h"
 
 class ADWeaponBase;
 class UDAttributeSet;
 
 UCLASS()
-class DAWN_API ADCharacterBase : public ACharacter, public IAbilitySystemInterface, public IDInteractable
+class DAWN_API ADCharacterBase : public ACharacter, public IAbilitySystemInterface, public IDInteractable, public ICombatInterface
 {
 	GENERATED_BODY()
 
@@ -56,8 +57,16 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category="Attributes")
 	TSubclassOf<UGameplayEffect> DefaultPrimaryAttributes;
-	
-	void InitializePrimaryAttributes() const;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category="Attributes")
+	TSubclassOf<UGameplayEffect> DefaultSecondaryAttributes;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category="Attributes")
+	TSubclassOf<UGameplayEffect> DefaultVitalAttributes;
+
+	void ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level) const;
+
+	void InitializeDefaultAttributes() const;
 	
 	/* Functions to Add */
 	UFUNCTION()

@@ -54,20 +54,16 @@ public:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	
 
-	/** Attributes */
+	// **************************** //
+	// ***** Vital Attributes ***** //
+	// **************************** //
+	
 	UPROPERTY(BlueprintReadOnly, Category="Attributes", ReplicatedUsing= OnRep_Health)
 	FGameplayAttributeData Health;
 	ATTRIBUTE_ACCESSORS(UDAttributeSet,Health);
 
 	UFUNCTION()
 	virtual void OnRep_Health(const FGameplayAttributeData& OldHealth) const;
-	
-	UPROPERTY(BlueprintReadOnly, Category="Attributes", ReplicatedUsing= OnRep_MaxHealth)
-	FGameplayAttributeData MaxHealth;
-	ATTRIBUTE_ACCESSORS(UDAttributeSet,MaxHealth);
-
-	UFUNCTION()
-	virtual void OnRep_MaxHealth(const FGameplayAttributeData& OldMaxHealth) const;
 
 	UPROPERTY(BlueprintReadOnly, Category="Attributes", ReplicatedUsing= OnRep_Mana)
 	FGameplayAttributeData Mana;
@@ -76,13 +72,6 @@ public:
 	UFUNCTION()
 	virtual void OnRep_Mana(const FGameplayAttributeData& OldMana) const;
 
-	UPROPERTY(BlueprintReadOnly, Category="Attributes", ReplicatedUsing= OnRep_MaxMana)
-	FGameplayAttributeData MaxMana;
-	ATTRIBUTE_ACCESSORS(UDAttributeSet,MaxMana);
-
-	UFUNCTION()
-	virtual void OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana) const;
-
 	UPROPERTY(BlueprintReadOnly, Category="Attributes", ReplicatedUsing= OnRep_Stamina)
 	FGameplayAttributeData Stamina;
 	ATTRIBUTE_ACCESSORS(UDAttributeSet,Stamina);
@@ -90,42 +79,14 @@ public:
 	UFUNCTION()
 	virtual void OnRep_Stamina(const FGameplayAttributeData& OldStamina) const;
 
-	UPROPERTY(BlueprintReadOnly, Category="Attributes", ReplicatedUsing= OnRep_MaxStamina)
-	FGameplayAttributeData MaxStamina;
-	ATTRIBUTE_ACCESSORS(UDAttributeSet,MaxStamina);
+	// ******************************************************** //
+	// ************** Vital Attributes End ******************** //
+	// ******************************************************** //
 
-	UFUNCTION()
-	virtual void OnRep_MaxStamina(const FGameplayAttributeData& OldMaxStamina) const;
+	// **************************** //
+	// **** Primary Attributes **** //
+	// **************************** //
 	
-	UPROPERTY(BlueprintReadOnly, Category="Attributes", ReplicatedUsing= OnRep_MovementSpeed)
-	FGameplayAttributeData MovementSpeed;
-	ATTRIBUTE_ACCESSORS(UDAttributeSet,MovementSpeed);
-
-	UFUNCTION()
-	virtual void OnRep_MovementSpeed(const FGameplayAttributeData& OldMovementSpeed) const;
-	
-	UPROPERTY(BlueprintReadOnly, Category="Attributes", ReplicatedUsing= OnRep_AttackSpeed)
-	FGameplayAttributeData AttackSpeed;
-	ATTRIBUTE_ACCESSORS(UDAttributeSet,AttackSpeed);
-
-	UFUNCTION()
-	virtual void OnRep_AttackSpeed(const FGameplayAttributeData& OldAttackSpeed) const;
-
-	UPROPERTY(BlueprintReadOnly, Category="Attributes", ReplicatedUsing= OnRep_CritChance)
-	FGameplayAttributeData CritChance;
-	ATTRIBUTE_ACCESSORS(UDAttributeSet,CritChance);
-
-	UFUNCTION()
-	virtual void OnRep_CritChance(const FGameplayAttributeData& OldCritChance) const;
-
-	UPROPERTY(BlueprintReadOnly, Category="Attributes", ReplicatedUsing= OnRep_ComboCounter)
-	FGameplayAttributeData ComboCounter;
-	ATTRIBUTE_ACCESSORS(UDAttributeSet,ComboCounter);
-
-	UFUNCTION()
-	virtual void OnRep_ComboCounter(const FGameplayAttributeData& OldComboCounter) const;
-
-	// Modifiable stats
 	UPROPERTY(BlueprintReadOnly, Category="Attributes|Stats", ReplicatedUsing= OnRep_Strength)
 	FGameplayAttributeData Strength;
 	ATTRIBUTE_ACCESSORS(UDAttributeSet,Strength);
@@ -147,6 +108,13 @@ public:
 	UFUNCTION()
 	virtual void OnRep_Vitality(const FGameplayAttributeData& OldVitality) const;
 
+	UPROPERTY(BlueprintReadOnly, Category="Attributes|Stats", ReplicatedUsing= OnRep_Speed)
+	FGameplayAttributeData Speed;
+	ATTRIBUTE_ACCESSORS(UDAttributeSet,Speed);
+
+	UFUNCTION()
+	virtual void OnRep_Speed(const FGameplayAttributeData& OldSpeed) const;
+
 	UPROPERTY(BlueprintReadOnly, Category="Attributes|Stats", ReplicatedUsing= OnRep_Intelligence)
 	FGameplayAttributeData Intelligence;
 	ATTRIBUTE_ACCESSORS(UDAttributeSet,Intelligence);
@@ -160,6 +128,13 @@ public:
 
 	UFUNCTION()
 	virtual void OnRep_Wisdom(const FGameplayAttributeData& OldWisdom) const;
+
+	UPROPERTY(BlueprintReadOnly, Category="Attributes", ReplicatedUsing= OnRep_Luck)
+	FGameplayAttributeData Luck;
+	ATTRIBUTE_ACCESSORS(UDAttributeSet,Luck);
+
+	UFUNCTION()
+	virtual void OnRep_Luck(const FGameplayAttributeData& OldLuck) const;
 
 	// Attributes modified by extra points
 	UPROPERTY(BlueprintReadOnly, Category="Attributes|Stats", ReplicatedUsing= OnRep_Devotion)
@@ -176,13 +151,34 @@ public:
 	UFUNCTION()
 	virtual void OnRep_Blasphemy(const FGameplayAttributeData& OldBlasphemy) const;
 
-	//Attributes modified by leveling up the base attributes
-	UPROPERTY(BlueprintReadOnly, Category="Attributes", ReplicatedUsing= OnRep_PlayerLevel)
-	FGameplayAttributeData PlayerLevel;
-	ATTRIBUTE_ACCESSORS(UDAttributeSet,PlayerLevel);
+	// ******************************************************** //
+	// ************* Primary Attributes End ******************* //
+	// ******************************************************** //
+
+	// **************************** //
+	// *** Secondary Attributes *** //
+	// **************************** //
+
+	UPROPERTY(BlueprintReadOnly, Category="Attributes", ReplicatedUsing= OnRep_MaxHealth)
+	FGameplayAttributeData MaxHealth;
+	ATTRIBUTE_ACCESSORS(UDAttributeSet,MaxHealth);
 
 	UFUNCTION()
-	virtual void OnRep_PlayerLevel(const FGameplayAttributeData& OldPlayerLevel) const;
+	virtual void OnRep_MaxHealth(const FGameplayAttributeData& OldMaxHealth) const;
+	
+	UPROPERTY(BlueprintReadOnly, Category="Attributes", ReplicatedUsing= OnRep_MaxMana)
+	FGameplayAttributeData MaxMana;
+	ATTRIBUTE_ACCESSORS(UDAttributeSet,MaxMana);
+	
+	UFUNCTION()
+	virtual void OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana) const;
+
+	UPROPERTY(BlueprintReadOnly, Category="Attributes", ReplicatedUsing= OnRep_MaxStamina)
+	FGameplayAttributeData MaxStamina;
+	ATTRIBUTE_ACCESSORS(UDAttributeSet,MaxStamina);
+
+	UFUNCTION()
+	virtual void OnRep_MaxStamina(const FGameplayAttributeData& OldMaxStamina) const;
 	
 	UPROPERTY(BlueprintReadOnly, Category="Attributes|Power", ReplicatedUsing= OnRep_PhysicalPower)
 	FGameplayAttributeData PhysicalPower;
@@ -198,12 +194,110 @@ public:
 	UFUNCTION()
 	virtual void OnRep_MagicalPower(const FGameplayAttributeData& OldMagicalPower) const;
 
+	UPROPERTY(BlueprintReadOnly, Category="Attributes|Power", ReplicatedUsing= OnRep_HealingPower)
+	FGameplayAttributeData HealingPower;
+	ATTRIBUTE_ACCESSORS(UDAttributeSet,HealingPower);
+
+	UFUNCTION()
+	virtual void OnRep_HealingPower(const FGameplayAttributeData& OldHealingPower) const;
+
+	UPROPERTY(BlueprintReadOnly, Category="Attributes|Power", ReplicatedUsing= OnRep_DivinePower)
+	FGameplayAttributeData DivinePower;
+	ATTRIBUTE_ACCESSORS(UDAttributeSet,DivinePower);
+
+	UFUNCTION()
+	virtual void OnRep_DivinePower(const FGameplayAttributeData& OldDivinePower) const;
+
+	UPROPERTY(BlueprintReadOnly, Category="Attributes|Power", ReplicatedUsing= OnRep_BlasphemousPower)
+	FGameplayAttributeData BlasphemousPower;
+	ATTRIBUTE_ACCESSORS(UDAttributeSet,BlasphemousPower);
+
+	UFUNCTION()
+	virtual void OnRep_BlasphemousPower(const FGameplayAttributeData& OldBlasphemousPower) const;
+
 	UPROPERTY(BlueprintReadOnly, Category="Attributes|Defense", ReplicatedUsing= OnRep_Armor)
 	FGameplayAttributeData Armor;
 	ATTRIBUTE_ACCESSORS(UDAttributeSet,Armor);
 
 	UFUNCTION()
 	virtual void OnRep_Armor(const FGameplayAttributeData& OldArmor) const;
+
+	UPROPERTY(BlueprintReadOnly, Category="Attributes|Defense", ReplicatedUsing= OnRep_HealthRegeneration)
+	FGameplayAttributeData HealthRegeneration;
+	ATTRIBUTE_ACCESSORS(UDAttributeSet,HealthRegeneration);
+
+	UFUNCTION()
+	virtual void OnRep_HealthRegeneration(const FGameplayAttributeData& OldHealthRegeneration) const;
+
+	UPROPERTY(BlueprintReadOnly, Category="Attributes|Defense", ReplicatedUsing= OnRep_ManaRegeneration)
+	FGameplayAttributeData ManaRegeneration;
+	ATTRIBUTE_ACCESSORS(UDAttributeSet,ManaRegeneration);
+
+	UFUNCTION()
+	virtual void OnRep_ManaRegeneration(const FGameplayAttributeData& OldManaRegeneration) const;
+
+	UPROPERTY(BlueprintReadOnly, Category="Attributes", ReplicatedUsing= OnRep_MovementSpeed)
+	FGameplayAttributeData MovementSpeed;
+	ATTRIBUTE_ACCESSORS(UDAttributeSet,MovementSpeed);
+
+	UFUNCTION()
+	virtual void OnRep_MovementSpeed(const FGameplayAttributeData& OldMovementSpeed) const;
+	
+	UPROPERTY(BlueprintReadOnly, Category="Attributes", ReplicatedUsing= OnRep_AttackSpeed)
+	FGameplayAttributeData AttackSpeed;
+	ATTRIBUTE_ACCESSORS(UDAttributeSet,AttackSpeed);
+
+	UFUNCTION()
+	virtual void OnRep_AttackSpeed(const FGameplayAttributeData& OldAttackSpeed) const;
+
+	UPROPERTY(BlueprintReadOnly, Category="Attributes", ReplicatedUsing= OnRep_BlockChance)
+	FGameplayAttributeData BlockChance;
+	ATTRIBUTE_ACCESSORS(UDAttributeSet,BlockChance);
+
+	UFUNCTION()
+	virtual void OnRep_BlockChance(const FGameplayAttributeData& OldBlockChance) const;
+
+	UPROPERTY(BlueprintReadOnly, Category="Attributes", ReplicatedUsing= OnRep_CritChance)
+	FGameplayAttributeData CritChance;
+	ATTRIBUTE_ACCESSORS(UDAttributeSet,CritChance);
+
+	UFUNCTION()
+	virtual void OnRep_CritChance(const FGameplayAttributeData& OldCritChance) const;
+
+	UPROPERTY(BlueprintReadOnly, Category="Attributes", ReplicatedUsing= OnRep_CritResistance)
+	FGameplayAttributeData CritResistance;
+	ATTRIBUTE_ACCESSORS(UDAttributeSet,CritResistance);
+
+	UFUNCTION()
+	virtual void OnRep_CritResistance(const FGameplayAttributeData& OldCritResistance) const;
+
+	UPROPERTY(BlueprintReadOnly, Category="Attributes", ReplicatedUsing= OnRep_CritDamage)
+	FGameplayAttributeData CritDamage;
+	ATTRIBUTE_ACCESSORS(UDAttributeSet,CritDamage);
+
+	UFUNCTION()
+	virtual void OnRep_CritDamage(const FGameplayAttributeData& OldCritDamage) const;
+
+	UPROPERTY(BlueprintReadOnly, Category="Attributes", ReplicatedUsing= OnRep_ArmorPenetration)
+	FGameplayAttributeData ArmorPenetration;
+	ATTRIBUTE_ACCESSORS(UDAttributeSet,ArmorPenetration);
+
+	UFUNCTION()
+	virtual void OnRep_ArmorPenetration(const FGameplayAttributeData& OldArmorPenetration) const;
+
+	UPROPERTY(BlueprintReadOnly, Category="Attributes", ReplicatedUsing= OnRep_ItemDiscovery)
+	FGameplayAttributeData ItemDiscovery;
+	ATTRIBUTE_ACCESSORS(UDAttributeSet,ItemDiscovery);
+
+	UFUNCTION()
+	virtual void OnRep_ItemDiscovery(const FGameplayAttributeData& OldItemDiscovery) const;
+
+	UPROPERTY(BlueprintReadOnly, Category="Attributes", ReplicatedUsing= OnRep_ComboCounter)
+	FGameplayAttributeData ComboCounter;
+	ATTRIBUTE_ACCESSORS(UDAttributeSet,ComboCounter);
+
+	UFUNCTION()
+	virtual void OnRep_ComboCounter(const FGameplayAttributeData& OldComboCounter) const;
 
 	UPROPERTY(BlueprintReadOnly, Category="Attributes|Defense", ReplicatedUsing= OnRep_MagicResistance)
 	FGameplayAttributeData MagicResistance;
@@ -253,8 +347,15 @@ public:
 
 	UFUNCTION()
 	virtual void OnRep_TimeResistance(const FGameplayAttributeData& OldTimeResistance) const;
+	
+	// ******************************************************** //
+	// *********** Secondary Attributes End ******************* //
+	// ******************************************************** //
 
-	// Different currencies
+	// **************************** //
+	// *** Different currencies *** //
+	// **************************** //
+	
 	// Currency to buy things from NPCs
 	UPROPERTY(BlueprintReadOnly, Category="Attributes|Expendables", ReplicatedUsing= OnRep_Draconium)
 	FGameplayAttributeData Draconium;
@@ -278,6 +379,10 @@ public:
 
 	UFUNCTION()
 	virtual void OnRep_AncientTimeShards(const FGameplayAttributeData& OldAncientTimeShards) const;
+
+	// ******************************************************** //
+	// ***************** Currencies End *********************** //
+	// ******************************************************** //
 
 private:
 
