@@ -7,6 +7,8 @@
 #include "DBlueprintFunctionLibrary.generated.h"
 
 
+struct FGameplayAbilityTargetDataHandle;
+
 UCLASS()
 class DAWN_API UDBlueprintFunctionLibrary : public UBlueprintFunctionLibrary
 {

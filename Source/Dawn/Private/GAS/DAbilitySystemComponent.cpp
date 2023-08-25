@@ -3,9 +3,12 @@
 
 #include "GAS/DAbilitySystemComponent.h"
 
+#include "DGameplayTags.h"
+
 void UDAbilitySystemComponent::AbilityActorInfoSet()
 {
 	OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UDAbilitySystemComponent::EffectApplied);
+	
 }
 
 void UDAbilitySystemComponent::EffectApplied_Implementation(UAbilitySystemComponent* AbilitySystemComponent,

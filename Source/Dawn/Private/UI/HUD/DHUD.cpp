@@ -4,6 +4,7 @@
 #include "UI/HUD/DHUD.h"
 #include "UI/Widget/DUserWidget.h"
 #include "Blueprint/UserWidget.h"
+#include "UI/WidgetController/DAttributeMenuWidgetController.h"
 #include "UI/WidgetController/OverlayWidgetController.h"
 
 UOverlayWidgetController* ADHUD::GetOverlayWidgetController(const FWidgetControllerParams& WCParams)
@@ -14,6 +15,16 @@ UOverlayWidgetController* ADHUD::GetOverlayWidgetController(const FWidgetControl
 	OverlayWidgetController->BindCallbacksToDependencies();
 
 	return OverlayWidgetController;
+}
+
+UDAttributeMenuWidgetController* ADHUD::GetAttributeMenuWidgetController(const FWidgetControllerParams& WCParams)
+{
+	if (AttributeMenuWidgetController != nullptr) return AttributeMenuWidgetController;
+	AttributeMenuWidgetController = NewObject<UDAttributeMenuWidgetController>(this, AttributeMenuWidgetControllerClass);
+	AttributeMenuWidgetController->SetWidgetControllerParams(WCParams);
+	AttributeMenuWidgetController->BindCallbacksToDependencies();
+
+	return AttributeMenuWidgetController;
 }
 
 void ADHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS)

@@ -2,23 +2,20 @@
 
 #include "PlayerController/DPlayerController.h"
 #include "AbilitySystemComponent.h"
+#include "DGameplayTags.h"
 #include "EnhancedInputSubsystems.h"
-#include "Blueprint/WidgetBlueprintLibrary.h"
 #include "Character/DPlayerCharacter.h"
 #include "Dawn/Dawn.h"
-#include "Dawn/DGameplayTags.h"
-#include "GAS/DAttributeSet.h"
 #include "Input/DEnhancedInputComponent.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "PlayerState/DPlayerState.h"
-#include "UI/Widget/DPlayerStatsWidget.h"
 
 
 ADPlayerController::ADPlayerController()
 {
 	bReplicates = true;
 
-	TurnRateGamepad = 45.f;
+	TurnRateGamepad = 10.f;
 }
 
 void ADPlayerController::BeginPlay()
@@ -263,7 +260,6 @@ void ADPlayerController::Input_Ability7(const FInputActionValue& InputActionValu
 
 void ADPlayerController::Input_Pause(const FInputActionValue& InputActionValue)
 {
-	TogglePlayerStats();
 	OnPauseActionUse();
 }
 
@@ -277,34 +273,6 @@ void ADPlayerController::OnRep_PlayerState()
 {
 	Super::OnRep_PlayerState();
 	CreateHUD();
-}
-
-void ADPlayerController::TogglePlayerStats()
-{
-	/*if (!UIPlayerStats || UIPlayerStats->GetName() == "None")
-	{
-		UIPlayerStats = CreateWidget<UDPlayerStatsWidget>(this, UIPlayerStatsClass);
-		UIPlayerStats->AddToViewport();
-		UIPlayerStats->SetVisibility(ESlateVisibility::Collapsed);
-		UE_LOG(LogTemp, Warning, TEXT("Create Widget!"));
-	}*/
-	if (UIPlayerStats->StatsBorder && UIPlayerStats->StatsBorder->GetVisibility() == ESlateVisibility::Collapsed)
-	{
-		UIPlayerStats->StatsBorder->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
-		UWidgetBlueprintLibrary::SetInputMode_GameAndUIEx(this, UIPlayerStats);
-		SetShowMouseCursor(true);
-		SetIgnoreLookInput(true);
-		SetIgnoreMoveInput(true);
-		UIPlayerStats->SetFocus();
-	}
-	else
-	{
-		UIPlayerStats->StatsBorder->SetVisibility(ESlateVisibility::Collapsed);
-		UWidgetBlueprintLibrary::SetInputMode_GameOnly(this);
-		SetShowMouseCursor(false);
-		SetIgnoreLookInput(false);
-		SetIgnoreMoveInput(false);
-	}
 }
 
 void ADPlayerController::CreateHUD()

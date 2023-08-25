@@ -4,6 +4,7 @@
 #include "GAS/DAttributeSet.h"
 
 #include "AbilitySystemBlueprintLibrary.h"
+#include "DGameplayTags.h"
 #include "GameplayEffectExtension.h"
 #include "Character/DCharacterBase.h"
 #include "Net/UnrealNetwork.h"
@@ -11,6 +12,46 @@
 
 UDAttributeSet::UDAttributeSet()
 {
+	const FDGameplayTags& GameplayTags = FDGameplayTags::Get();
+
+	
+	/* Primary Attributes */
+	TagsToAttributes.Add(GameplayTags.PrimaryAttributeTag_Strength, GetStrengthAttribute);
+	TagsToAttributes.Add(GameplayTags.PrimaryAttributeTag_Dexterity, GetDexterityAttribute);
+	TagsToAttributes.Add(GameplayTags.PrimaryAttributeTag_Vitality, GetVitalityAttribute);
+	TagsToAttributes.Add(GameplayTags.PrimaryAttributeTag_Speed, GetSpeedAttribute);
+	TagsToAttributes.Add(GameplayTags.PrimaryAttributeTag_Intelligence, GetIntelligenceAttribute);
+	TagsToAttributes.Add(GameplayTags.PrimaryAttributeTag_Wisdom, GetWisdomAttribute);
+	TagsToAttributes.Add(GameplayTags.PrimaryAttributeTag_Luck, GetLuckAttribute);
+	TagsToAttributes.Add(GameplayTags.PrimaryAttributeTag_Devotion, GetDevotionAttribute);
+	TagsToAttributes.Add(GameplayTags.PrimaryAttributeTag_Blasphemy, GetBlasphemyAttribute);
+	/* Secondary Attributes */
+	TagsToAttributes.Add(GameplayTags.SecondaryAttributeTag_MaxHealth, GetMaxHealthAttribute);
+	TagsToAttributes.Add(GameplayTags.SecondaryAttributeTag_MaxMana, GetMaxManaAttribute);
+	TagsToAttributes.Add(GameplayTags.SecondaryAttributeTag_MaxStamina, GetMaxStaminaAttribute);
+	TagsToAttributes.Add(GameplayTags.SecondaryAttributeTag_MovementSpeed, GetMovementSpeedAttribute);
+	TagsToAttributes.Add(GameplayTags.SecondaryAttributeTag_AttackSpeed, GetAttackSpeedAttribute);
+	TagsToAttributes.Add(GameplayTags.SecondaryAttributeTag_CritChance, GetCritChanceAttribute);
+	TagsToAttributes.Add(GameplayTags.SecondaryAttributeTag_CritResistance, GetCritResistanceAttribute);
+	TagsToAttributes.Add(GameplayTags.SecondaryAttributeTag_CritDamage, GetCritDamageAttribute);
+	TagsToAttributes.Add(GameplayTags.SecondaryAttributeTag_PhysicalPower, GetPhysicalPowerAttribute);
+	TagsToAttributes.Add(GameplayTags.SecondaryAttributeTag_MagicalPower, GetMagicalPowerAttribute);
+	TagsToAttributes.Add(GameplayTags.SecondaryAttributeTag_HealingPower, GetHealingPowerAttribute);
+	TagsToAttributes.Add(GameplayTags.SecondaryAttributeTag_DivinePower, GetDivinePowerAttribute);
+	TagsToAttributes.Add(GameplayTags.SecondaryAttributeTag_BlasphemousPower, GetBlasphemousPowerAttribute);
+	TagsToAttributes.Add(GameplayTags.SecondaryAttributeTag_Armor, GetArmorAttribute);
+	TagsToAttributes.Add(GameplayTags.SecondaryAttributeTag_HealthRegeneration, GetHealthRegenerationAttribute);
+	TagsToAttributes.Add(GameplayTags.SecondaryAttributeTag_ManaRegeneration, GetManaRegenerationAttribute);
+	TagsToAttributes.Add(GameplayTags.SecondaryAttributeTag_BlockChance, GetBlockChanceAttribute);
+	TagsToAttributes.Add(GameplayTags.SecondaryAttributeTag_ArmorPenetration, GetArmorPenetrationAttribute);
+	TagsToAttributes.Add(GameplayTags.SecondaryAttributeTag_ItemDiscovery, GetItemDiscoveryAttribute);
+	TagsToAttributes.Add(GameplayTags.SecondaryAttributeTag_MagicResistance, GetMagicResistanceAttribute);
+	TagsToAttributes.Add(GameplayTags.SecondaryAttributeTag_FireResistance, GetFireResistanceAttribute);
+	TagsToAttributes.Add(GameplayTags.SecondaryAttributeTag_ColdResistance, GetColdResistanceAttribute);
+	TagsToAttributes.Add(GameplayTags.SecondaryAttributeTag_LightningResistance, GetLightningResistanceAttribute);
+	TagsToAttributes.Add(GameplayTags.SecondaryAttributeTag_HolyResistance, GetHolyResistanceAttribute);
+	TagsToAttributes.Add(GameplayTags.SecondaryAttributeTag_DarknessResistance, GetDarknessResistanceAttribute);
+	TagsToAttributes.Add(GameplayTags.SecondaryAttributeTag_TimeResistance, GetTimeResistanceAttribute);
 	
 }
 

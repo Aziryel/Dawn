@@ -1,9 +1,8 @@
 // Copyright Aziryel
 
 #include "AbilityTasks/DAT_WaitInputPressWithTags.h"
-
 #include "AbilitySystemComponent.h"
-#include "Dawn/DGameplayTags.h"
+#include "DGameplayTags.h"
 
 UDAT_WaitInputPressWithTags::UDAT_WaitInputPressWithTags(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)

@@ -42,12 +42,9 @@ class DAWN_API ADPlayerController : public APlayerController
 public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UIWidgets")
-	TSubclassOf<UDPlayerStatsWidget> UIPlayerStatsClass;
+	TSubclassOf<UDUserWidget> UIPlayerStatsClass;
 	UPROPERTY(BlueprintReadWrite, Category = "UI Widgets")
-	UDPlayerStatsWidget* UIPlayerStats;
-
-	UFUNCTION()
-	void TogglePlayerStats();
+	UDUserWidget* UIPlayerStats;
 
 	UFUNCTION()
 	void CreateHUD();
@@ -64,7 +61,7 @@ protected:
 	void SendLocalInputToASC(bool bIsPressed, const EDAbilityInputID AbilityInputID);
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Camera)
 	float TurnRateGamepad;
 
 	/** Delegate to whom anyone can subscribe to receive this event */
