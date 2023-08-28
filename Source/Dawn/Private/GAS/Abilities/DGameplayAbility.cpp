@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "GAS/DGameplayAbility.h"
+#include "GAS/Abilities/DGameplayAbility.h"
 #include "AbilitySystemComponent.h"
 
 UDGameplayAbility::UDGameplayAbility()

@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "AbilitySystemInterface.h"
 #include "GAS/DAbilitySystemComponent.h"
-#include "GAS/DGameplayAbility.h"
+#include "GAS/Abilities/DGameplayAbility.h"
 #include "Interfaces/DInteractable.h"
 #include "GameFramework/Actor.h"
 #include "DWeaponBase.generated.h"

@@ -2,7 +2,7 @@
 
 
 #include "GAS/DAbilitySystemComponent.h"
-#include "GAS/DGameplayAbility.h"
+#include "GAS/Abilities/DGameplayAbility.h"
 #include "DGameplayTags.h"
 
 void UDAbilitySystemComponent::AbilityActorInfoSet()

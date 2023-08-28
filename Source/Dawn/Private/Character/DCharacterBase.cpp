@@ -6,7 +6,7 @@
 #include "Components/CapsuleComponent.h"
 #include "GAS/DAbilitySystemComponent.h"
 #include "GAS/DAttributeSet.h"
-#include "GAS/DGameplayAbility.h"
+#include "GAS/Abilities/DGameplayAbility.h"
 #include "Net/UnrealNetwork.h"
 
 void ADCharacterBase::HighlightActor()

@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "DGameplayAbility.h"
+#include "Abilities/DGameplayAbility.h"
 #include "DGAInteractScan.generated.h"
 
 class UAbilityTask_WaitGameplayTagRemoved;
