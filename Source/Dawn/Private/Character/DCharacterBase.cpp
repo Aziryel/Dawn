@@ -103,19 +103,12 @@ void ADCharacterBase::PossessedBy(AController* NewController)
 	
 }
 
-void ADCharacterBase::AddCharacterAbilities(TArray<TSubclassOf<UDGameplayAbility>> AbilitiesToAdd)
+void ADCharacterBase::AddCharacterAbilities()
 {
-	// Grant abilities but only on the server
-	if (GetLocalRole() != ROLE_Authority || !IsValid(AbilitySystemComponent))
-	{
-		return;
-	}
+	UDAbilitySystemComponent* DASC = CastChecked<UDAbilitySystemComponent>(AbilitySystemComponent);
+	if (GetLocalRole() != ROLE_Authority) return;
 
-	for (TSubclassOf<UDGameplayAbility>& StartupAbility : AbilitiesToAdd)
-	{
-		AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(StartupAbility, 1, static_cast<int32>(StartupAbility.GetDefaultObject()->AbilityInputID), this));
-		UE_LOG(LogTemp, Warning, TEXT("Ability Name : %s"), *StartupAbility.GetDefaultObject()->GetName());
-	}
+	DASC->AddCharacterAbilities(StartupAbilities);
 }
 
 void ADCharacterBase::InitializeASC()

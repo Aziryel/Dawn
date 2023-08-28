@@ -13,6 +13,7 @@
 
 class ADWeaponBase;
 class UDAttributeSet;
+class UGameplayAbility;
 
 UCLASS()
 class DAWN_API ADCharacterBase : public ACharacter, public IAbilitySystemInterface, public IDInteractable, public ICombatInterface
@@ -34,9 +35,6 @@ public:
 	UDAttributeSet* GetAttributeSet() const { return Attributes; }
 	
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "GAS|Default Gameplay Settings")
-	TArray<TSubclassOf<UDGameplayAbility>> CharacterAbilities;
 
 	UFUNCTION(BlueprintCallable, Category = "GAS")
 	virtual bool IsAlive() const;
@@ -70,8 +68,12 @@ protected:
 	
 	/* Functions to Add */
 	UFUNCTION()
-	void AddCharacterAbilities(TArray<TSubclassOf<UDGameplayAbility>> AbilitiesToAdd);
+	void AddCharacterAbilities();
 
 	virtual void InitializeASC();
+
+private:
+	UPROPERTY(EditAnywhere, Category = "GAS|Default Gameplay Settings")
+	TArray<TSubclassOf<UGameplayAbility>> StartupAbilities;
 	
 };

@@ -4,7 +4,7 @@
 #include "GameplayTagContainer.h"
 #include "EnhancedInput/Public/InputAction.h"
 
-const UInputAction* UDInputConfig::FindInputActionForTag(const FGameplayTag& InputTag) const
+const UInputAction* UDInputConfig::FindInputActionForTag(const FGameplayTag& InputTag, bool bLogNotFound) const
 {
 	for (const FTaggedInputAction& TaggedInputAction : TaggedInputActions)
 	{
@@ -12,6 +12,11 @@ const UInputAction* UDInputConfig::FindInputActionForTag(const FGameplayTag& Inp
 		{
 			return TaggedInputAction.InputAction;
 		}
+	}
+
+	if (bLogNotFound)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Can't find ability input action for InputTag [%s] on InputConfig [%s]"), *InputTag.ToString(), *GetNameSafe(this));
 	}
 
 	return nullptr;

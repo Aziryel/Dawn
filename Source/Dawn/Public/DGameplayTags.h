@@ -34,13 +34,30 @@ public:
 	FGameplayTag InputTag_Ability7;
 	FGameplayTag InputTag_Interact;
 	FGameplayTag InputTag_Pause;
+	FGameplayTag InputTag_LMB;
+	FGameplayTag InputTag_RMB;
+	FGameplayTag InputTag_1;
+	FGameplayTag InputTag_2;
+	FGameplayTag InputTag_3;
+	FGameplayTag InputTag_4;
+	FGameplayTag InputTag_5;
+	FGameplayTag InputTag_6;
+	FGameplayTag InputTag_7;
+	FGameplayTag InputTag_8;
+	FGameplayTag InputTag_9;
+	FGameplayTag InputTag_0;
+	
+	//Weapon Tags
 	FGameplayTag WeaponTag_Initial;
 	FGameplayTag WeaponTag_Equipped;
 	FGameplayTag WeaponTag_Dropped;
+	//Equipped Tags
 	FGameplayTag EquippedTag_Sword;
+	//Ability Tags
 	FGameplayTag AbilityTag_Interaction;
 	FGameplayTag AbilityTag_InteractEnd;
 	FGameplayTag AbilityTag_BlocksInteraction;
+	//State Tags
 	FGameplayTag StateTag_Dead;
 	FGameplayTag StateTag_Interaction;
 	FGameplayTag StateTag_InteractionRemoval;

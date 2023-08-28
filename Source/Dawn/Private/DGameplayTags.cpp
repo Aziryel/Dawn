@@ -18,6 +18,7 @@ void FDGameplayTags::InitializeNativeTags()
 
 void FDGameplayTags::AddAllTags(UGameplayTagsManager& Manager)
 {
+	//Input Tags
 	AddTag(InputTag_Move, "InputTag.Move", "Move input.");
 	AddTag(InputTag_Look_Mouse, "InputTag.Look.Mouse", "Look (mouse) input.");
 	AddTag(InputTag_Look_Stick, "InputTag.Look.Stick", "Look (stick) input.");
@@ -34,13 +35,29 @@ void FDGameplayTags::AddAllTags(UGameplayTagsManager& Manager)
 	AddTag(InputTag_Ability7, "InputTag.Ability7", "General Ability input.");
 	AddTag(InputTag_Pause, "InputTag.Pause", "Pause input.");
 	AddTag(InputTag_Interact, "InputTag.Interact", "Input to interact with items.");
+	AddTag(InputTag_LMB, "InputTag.LMB", "Input Tag for the RMB");
+	AddTag(InputTag_RMB, "InputTag.RMB", "Input Tag for the LMB");
+	AddTag(InputTag_1, "InputTag.1", "Input tag for Key 1");
+	AddTag(InputTag_2, "InputTag.2", "Input tag for Key 2");
+	AddTag(InputTag_3, "InputTag.3", "Input tag for Key 3");
+	AddTag(InputTag_4, "InputTag.4", "Input tag for Key 4");
+	AddTag(InputTag_5, "InputTag.5", "Input tag for Key 5");
+	AddTag(InputTag_6, "InputTag.6", "Input tag for Key 6");
+	AddTag(InputTag_7, "InputTag.7", "Input tag for Key 7");
+	AddTag(InputTag_8, "InputTag.8", "Input tag for Key 8");
+	AddTag(InputTag_9, "InputTag.9", "Input tag for Key 9");
+	AddTag(InputTag_0, "InputTag.0", "Input tag for Key 0");
+	//WeaponTags
 	AddTag(WeaponTag_Initial, "WeaponTag.Initial", "Weapon is Initialized in the World");
 	AddTag(WeaponTag_Equipped, "WeaponTag.Equipped", "Weapon is equipped");
 	AddTag(WeaponTag_Dropped, "WeaponTag.Dropped", "Weapon is dropped by a character");
+	//Equipped Tags
 	AddTag(EquippedTag_Sword, "EquippedTag.Sword", "Tag to Equip a Sword Weapon Type");
+	//Ability Tags
 	AddTag(AbilityTag_Interaction, "Ability.Interaction", "Tag to activate the Interaction");
 	AddTag(AbilityTag_InteractEnd, "Ability.InteractEnd", "Tag to end the interaction");
 	AddTag(AbilityTag_BlocksInteraction, "Ability.BlocksInteraction", "Tag to block the Interactions");
+	//State Tags
 	AddTag(StateTag_Dead, "State.Dead", "To indicate the character is dead");
 	AddTag(StateTag_Interaction, "State.Interaction", "Tag to when the player is interacting");
 	AddTag(StateTag_InteractionRemoval, "State.InteractionRemoval", "Tag to use when the Interaction has been completed/cancelled");

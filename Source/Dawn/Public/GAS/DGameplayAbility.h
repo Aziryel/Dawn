@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "Abilities/GameplayAbility.h"
-#include "Dawn/Dawn.h"
 #include "DGameplayAbility.generated.h"
 
 /**
@@ -16,17 +15,10 @@ class DAWN_API UDGameplayAbility : public UGameplayAbility
 	GENERATED_BODY()
 
 public:
-
 	UDGameplayAbility();
 
-	// Abilities with this set will automatically activate when the input is pressed
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Ability")
-	EDAbilityInputID AbilityInputID = EDAbilityInputID::None;
-
-	// Value associated with an ability without trying to automatically activate the input
-	// Passive abilities won't be tied to input so we need a generic way to associate abilities with slots
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Ability")
-	EDAbilityInputID AbilityID = EDAbilityInputID::None;
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	FGameplayTag StartupInputTag;
 
 	// Tells an ability to activate immediately when its granted. Used for passive abilities and abilites forced on others.
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability")

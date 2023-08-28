@@ -91,12 +91,7 @@ void ADPlayerCharacter::PossessedBy(AController* NewController)
 
 	// This is for the Server, the same settings are set on OnRep_PlayerState for Clients in the DPlayerCharacter class
 	InitializeASC();
-
-	ADPlayerController* PC = Cast<ADPlayerController>(GetController());
-	if (PC)
-	{
-		PC->CreateHUD();
-	}
+	AddCharacterAbilities();
 }
 
 void ADPlayerCharacter::OnRep_PlayerState()
@@ -124,7 +119,6 @@ void ADPlayerCharacter::InitializeASC()
 		AbilitySystemComponent->InitAbilityActorInfo(DawnPlayerState,this);
 		Cast<UDAbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
 		Attributes = DawnPlayerState->GetAttributeSetBase();
-		AddCharacterAbilities(CharacterAbilities);
 
 		if (ADPlayerController* DPlayerController = Cast<ADPlayerController>(GetController()))
 		{

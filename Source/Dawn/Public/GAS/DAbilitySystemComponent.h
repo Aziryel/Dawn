@@ -6,6 +6,8 @@
 #include "AbilitySystemComponent.h"
 #include "DAbilitySystemComponent.generated.h"
 
+class UDGameplayAbility;
+
 DECLARE_MULTICAST_DELEGATE_OneParam(FEffectAssetTags, const FGameplayTagContainer& /*AssetTags*/);
 
 /**
@@ -19,12 +21,16 @@ class DAWN_API UDAbilitySystemComponent : public UAbilitySystemComponent
 public:
 
 	void AbilityActorInfoSet();
-
 	FEffectAssetTags EffectAssetTags;
+
+	void AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupAbilities);
+
+	void AbilityInputTagHeld(const FGameplayTag& InputTag);
+	void AbilityInputTagReleased(const FGameplayTag& InputTag);
 	
 protected:
 
 	UFUNCTION(Client, Reliable)
-	void EffectApplied(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle);
+	void ClientEffectApplied(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle);
 	
 };

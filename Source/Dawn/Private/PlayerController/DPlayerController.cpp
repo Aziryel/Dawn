@@ -1,14 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "PlayerController/DPlayerController.h"
-#include "AbilitySystemComponent.h"
+
+#include "AbilitySystemBlueprintLibrary.h"
 #include "DGameplayTags.h"
+#include "GameplayTagContainer.h"
 #include "EnhancedInputSubsystems.h"
 #include "Character/DPlayerCharacter.h"
-#include "Dawn/Dawn.h"
 #include "Input/DEnhancedInputComponent.h"
-#include "Kismet/KismetSystemLibrary.h"
-#include "PlayerState/DPlayerState.h"
 
 
 ADPlayerController::ADPlayerController()
@@ -42,108 +41,18 @@ void ADPlayerController::SetupInputComponent()
 	 * InputComponent points directly to a DEnhancedInputComponent Class (Custom Class) because we specified that in the
 	 * Project Settings -> Input -> Default Classes -> Default Input Component Class
 	 */
-	UDEnhancedInputComponent* EnhancedInputComponent = CastChecked<UDEnhancedInputComponent>(InputComponent);
+	UDEnhancedInputComponent* DEnhancedInputComponent = CastChecked<UDEnhancedInputComponent>(InputComponent);
 
 	const FDGameplayTags& GameplayTags = FDGameplayTags::Get();
 
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Move, ETriggerEvent::Triggered, this, &ADPlayerController::Input_Move);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Look_Mouse, ETriggerEvent::Triggered, this, &ADPlayerController::Input_Look);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Look_Stick, ETriggerEvent::Triggered, this, &ADPlayerController::Input_Look);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Primary, ETriggerEvent::Triggered, this, &ADPlayerController::Input_Primary);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Secondary, ETriggerEvent::Triggered, this, &ADPlayerController::Input_Secondary);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Ability1, ETriggerEvent::Triggered, this, &ADPlayerController::Input_Ability1);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Ability2, ETriggerEvent::Triggered, this, &ADPlayerController::Input_Ability2);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Ability3, ETriggerEvent::Triggered, this, &ADPlayerController::Input_Ability3);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Ability4, ETriggerEvent::Triggered, this, &ADPlayerController::Input_Ability4);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Ability5, ETriggerEvent::Triggered, this, &ADPlayerController::Input_Ability5);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Ability6, ETriggerEvent::Triggered, this, &ADPlayerController::Input_Ability6);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Ability7, ETriggerEvent::Triggered, this, &ADPlayerController::Input_Ability7);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Jump, ETriggerEvent::Triggered, this, &ADPlayerController::Input_Jump);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Pause, ETriggerEvent::Triggered, this, &ADPlayerController::Input_Pause);
-	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Interact, ETriggerEvent::Triggered, this, &ADPlayerController::Input_Interact);
+	DEnhancedInputComponent->BindAbilityActions(InputConfig, this, &ThisClass::AbilityInputTagPressed, &ThisClass::AbilityInputTagReleased, &ThisClass::AbilityInputTagHeld);
 	
-}
-
-void ADPlayerController::SendLocalInputToASC(bool bIsPressed, const EDAbilityInputID AbilityInputID)
-{
-	if (!DPlayerState)
-	{
-		DPlayerState = GetPlayerState<ADPlayerState>();
-	}
-	if (DPlayerState && DPlayerState->GetAbilitySystemComponent())
-	{
-		if (bIsPressed)
-		{
-			UKismetSystemLibrary::PrintString(this, "We are pressing our input");
-			DPlayerState->GetAbilitySystemComponent()->AbilityLocalInputPressed(static_cast<int32>(AbilityInputID));
-		}
-		else
-		{
-			UKismetSystemLibrary::PrintString(this, "We are releasing our input");
-			DPlayerState->GetAbilitySystemComponent()->AbilityLocalInputReleased(static_cast<int32>(AbilityInputID));
-		}
-	}
+	//TODO: Change this for the new system
+	DEnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Move, ETriggerEvent::Triggered, this, &ADPlayerController::Input_Move);
+	DEnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Look_Mouse, ETriggerEvent::Triggered, this, &ADPlayerController::Input_Look);
+	DEnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Look_Stick, ETriggerEvent::Triggered, this, &ADPlayerController::Input_Look);
+	DEnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Jump, ETriggerEvent::Triggered, this, &ADPlayerController::Input_Jump);
 	
-}
-
-void ADPlayerController::OnPrimaryActionUse()
-{
-	OnPrimaryAction.Broadcast();
-}
-
-void ADPlayerController::OnSecondaryActionUse()
-{
-	OnSecondaryAction.Broadcast();
-}
-
-void ADPlayerController::OnWeaponArtUse()
-{
-	OnWeaponArtAction.Broadcast();
-}
-
-void ADPlayerController::OnAbility1ActionUse()
-{
-	OnAbility1Action.Broadcast();
-}
-
-void ADPlayerController::OnAbility2ActionUse()
-{
-	OnAbility2Action.Broadcast();
-}
-
-void ADPlayerController::OnAbility3ActionUse()
-{
-	OnAbility3Action.Broadcast();
-}
-
-void ADPlayerController::OnAbility4ActionUse()
-{
-	OnAbility4Action.Broadcast();
-}
-
-void ADPlayerController::OnAbility5ActionUse()
-{
-	OnAbility5Action.Broadcast();
-}
-
-void ADPlayerController::OnAbility6ActionUse()
-{
-	OnAbility6Action.Broadcast();
-}
-
-void ADPlayerController::OnAbility7ActionUse()
-{
-	OnAbility7Action.Broadcast();
-}
-
-void ADPlayerController::OnPauseActionUse()
-{
-	OnPauseAction.Broadcast();
-}
-
-void ADPlayerController::OnInteractActionUse()
-{
-	OnInteractAction.Broadcast();
 }
 
 void ADPlayerController::TurnAtRate(float Rate)
@@ -198,113 +107,30 @@ void ADPlayerController::Input_Jump(const FInputActionValue& InputActionValue)
 	PlayerCharacter->Jump();
 }
 
-void ADPlayerController::Input_Primary(const FInputActionValue& InputActionValue)
+void ADPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
 {
-	SendLocalInputToASC(true, EDAbilityInputID::PrimaryAbility);
-	OnPrimaryActionUse();
+	//GEngine->AddOnScreenDebugMessage(1, 3.f, FColor::Red, *InputTag.ToString());
 }
 
-void ADPlayerController::Input_Secondary(const FInputActionValue& InputActionValue)
+void ADPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 {
-	SendLocalInputToASC(true, EDAbilityInputID::SecondaryAbility);
-	OnSecondaryActionUse();
+	if (GetASC() == nullptr) return;
+	GetASC()->AbilityInputTagReleased(InputTag);
 }
 
-void ADPlayerController::Input_WeaponArt(const FInputActionValue& InputActionValue)
+void ADPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 {
-	SendLocalInputToASC(true, EDAbilityInputID::WeaponArt);
-	OnWeaponArtUse();
+	if (GetASC() == nullptr) return;
+	GetASC()->AbilityInputTagHeld(InputTag);
 }
 
-void ADPlayerController::Input_Ability1(const FInputActionValue& InputActionValue)
+UDAbilitySystemComponent* ADPlayerController::GetASC()
 {
-	SendLocalInputToASC(true, EDAbilityInputID::Ability1);
-	OnAbility1ActionUse();
-}
-
-void ADPlayerController::Input_Ability2(const FInputActionValue& InputActionValue)
-{
-	SendLocalInputToASC(true, EDAbilityInputID::Ability2);
-	OnAbility2ActionUse();
-}
-
-void ADPlayerController::Input_Ability3(const FInputActionValue& InputActionValue)
-{
-	SendLocalInputToASC(true, EDAbilityInputID::Ability3);
-	OnAbility3ActionUse();
-}
-
-void ADPlayerController::Input_Ability4(const FInputActionValue& InputActionValue)
-{
-	SendLocalInputToASC(true, EDAbilityInputID::Ability4);
-	OnAbility4ActionUse();
-}
-
-void ADPlayerController::Input_Ability5(const FInputActionValue& InputActionValue)
-{
-	SendLocalInputToASC(true, EDAbilityInputID::Ability5);
-	OnAbility5ActionUse();
-}
-
-void ADPlayerController::Input_Ability6(const FInputActionValue& InputActionValue)
-{
-	SendLocalInputToASC(true, EDAbilityInputID::Ability6);
-	OnAbility6ActionUse();
-}
-
-void ADPlayerController::Input_Ability7(const FInputActionValue& InputActionValue)
-{
-	SendLocalInputToASC(true, EDAbilityInputID::Ability7);
-	OnAbility7ActionUse();
-}
-
-void ADPlayerController::Input_Pause(const FInputActionValue& InputActionValue)
-{
-	OnPauseActionUse();
-}
-
-void ADPlayerController::Input_Interact(const FInputActionValue& InputActionValue)
-{
-	SendLocalInputToASC(true, EDAbilityInputID::Interact);
-	OnInteractActionUse();
-}
-
-void ADPlayerController::OnRep_PlayerState()
-{
-	Super::OnRep_PlayerState();
-	CreateHUD();
-}
-
-void ADPlayerController::CreateHUD()
-{
-	/*if (!IsLocalPlayerController())
+	if (DAbilitySystemComponent == nullptr)
 	{
-		return;
+		DAbilitySystemComponent = Cast<UDAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetPawn<APawn>()));
 	}
-
-	ADPlayerState* PS = GetPlayerState<ADPlayerState>();
-	if (!PS)
-	{
-		return;
-	}
-	
-	if (!UIPlayerStats || UIPlayerStats->GetName() == "None")
-	{
-		UIPlayerStats = CreateWidget<UDPlayerStatsWidget>(this, UIPlayerStatsClass);
-		UIPlayerStats->AddToViewport();
-		UIPlayerStats->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
-		UIPlayerStats->UpdateText(UIPlayerStats->HealthText, PS->GetAttributeSetBase()->GetHealth());
-		UIPlayerStats->UpdateProgressBar(UIPlayerStats->HealthBar, PS->GetAttributeSetBase()->GetHealth(), PS->GetAttributeSetBase()->GetMaxHealth());
-		UIPlayerStats->UpdateText(UIPlayerStats->ManaText, PS->GetAttributeSetBase()->GetMana());
-		UIPlayerStats->UpdateProgressBar(UIPlayerStats->ManaBar, PS->GetAttributeSetBase()->GetMana(), PS->GetAttributeSetBase()->GetMaxMana());
-		// Update Stats
-		UIPlayerStats->UpdateStats(UIPlayerStats->StrText, PS->GetAttributeSetBase()->GetStrength());
-		UIPlayerStats->UpdateStats(UIPlayerStats->DexText, PS->GetAttributeSetBase()->GetDexterity());
-		UIPlayerStats->UpdateStats(UIPlayerStats->VitText, PS->GetAttributeSetBase()->GetVitality());
-		UIPlayerStats->UpdateStats(UIPlayerStats->IntText, PS->GetAttributeSetBase()->GetIntelligence());
-		UIPlayerStats->UpdateStats(UIPlayerStats->WisText, PS->GetAttributeSetBase()->GetWisdom());
-		UE_LOG(LogTemp, Warning, TEXT("Create Widget!"));
-	}*/
+	return DAbilitySystemComponent;
 }
 
 

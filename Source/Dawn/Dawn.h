@@ -14,24 +14,3 @@
 #define COLLISION_INTERACTABLE					ECollisionChannel::ECC_GameTraceChannel5
 
 #define CUSTOM_DEPTH_WHITE 250
-
-//Skill Enums
-
-UENUM(BlueprintType)
-enum class EDAbilityInputID : uint8
-{
-	None,
-	Confirm,
-	Cancel,
-	PrimaryAbility,
-	SecondaryAbility,
-	WeaponArt,
-	Ability1,
-	Ability2,
-	Ability3,
-	Ability4,
-	Ability5,
-	Ability6,
-	Ability7,
-	Interact
-};
