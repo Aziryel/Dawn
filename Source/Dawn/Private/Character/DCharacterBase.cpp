@@ -103,6 +103,11 @@ void ADCharacterBase::PossessedBy(AController* NewController)
 	
 }
 
+FVector ADCharacterBase::GetCombatSocketLocation()
+{
+	return GetMesh()->GetSocketLocation(MagicSpawnSocketName);
+}
+
 void ADCharacterBase::AddCharacterAbilities()
 {
 	UDAbilitySystemComponent* DASC = CastChecked<UDAbilitySystemComponent>(AbilitySystemComponent);

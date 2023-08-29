@@ -45,6 +45,11 @@ protected:
 	// Only called on the Server. Calls before Server's AcknowledgePossession.
 	virtual void PossessedBy(AController* NewController) override;
 
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	FName MagicSpawnSocketName;
+
+	virtual FVector GetCombatSocketLocation() override;
+
 	// Ability System Component and Attributes are constructed in the PlayerState for the player and in the constructor for the enemies
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GAS|Ability System Component")
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
