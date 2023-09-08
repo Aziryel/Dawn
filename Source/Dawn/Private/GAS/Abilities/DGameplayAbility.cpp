@@ -3,6 +3,8 @@
 
 #include "GAS/Abilities/DGameplayAbility.h"
 #include "AbilitySystemComponent.h"
+#include "Character/DPlayerCharacter.h"
+#include "PlayerState/DPlayerState.h"
 
 UDGameplayAbility::UDGameplayAbility()
 {

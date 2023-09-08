@@ -25,6 +25,9 @@ public:
 
 	FORCEINLINE int32 GetPlayerLevel() const { return Level; }
 
+	UPROPERTY(BlueprintReadWrite)
+	FGameplayAbilityTargetDataHandle CurrentTracedTarget;
+
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GAS|Ability System Component")
 	TObjectPtr<UDAbilitySystemComponent> AbilitySystemComponent;

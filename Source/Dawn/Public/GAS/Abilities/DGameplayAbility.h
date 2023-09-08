@@ -6,6 +6,7 @@
 #include "Abilities/GameplayAbility.h"
 #include "DGameplayAbility.generated.h"
 
+class ADPlayerState;
 /**
  * 
  */
@@ -31,5 +32,8 @@ public:
 	// Is the player's input currently pressed? Only works if the ability is bound to input.
 	UFUNCTION(BlueprintCallable, Category = "Ability")
 	virtual bool IsInputPressed() const;
+
+	UPROPERTY(BlueprintReadOnly)
+	ADPlayerState* OwningPlayerState;
 	
 };

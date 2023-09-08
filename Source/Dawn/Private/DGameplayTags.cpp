@@ -57,6 +57,8 @@ void FDGameplayTags::AddAllTags(UGameplayTagsManager& Manager)
 	AddTag(AbilityTag_Interaction, "Ability.Interaction", "Tag to activate the Interaction");
 	AddTag(AbilityTag_InteractEnd, "Ability.InteractEnd", "Tag to end the interaction");
 	AddTag(AbilityTag_BlocksInteraction, "Ability.BlocksInteraction", "Tag to block the Interactions");
+	//Gameplay Event Tags
+	AddTag(GameplayEventTag_FireBolt, "Event.Montage.FireBolt", "Tag to spawn a fireball.");
 	//State Tags
 	AddTag(StateTag_Dead, "State.Dead", "To indicate the character is dead");
 	AddTag(StateTag_Interaction, "State.Interaction", "Tag to when the player is interacting");

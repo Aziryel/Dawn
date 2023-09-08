@@ -45,6 +45,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "Interact")
 	UAbilityTask_WaitGameplayTagRemoved* Task_WaitGameplayTagRemoved;
 
+	UPROPERTY(BlueprintReadWrite)
+	FVector TraceEndLocation;
+
 	UPROPERTY()
 	ADPlayerCharacter* PlayerCharacter;
 	

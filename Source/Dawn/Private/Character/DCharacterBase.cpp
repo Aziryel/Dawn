@@ -28,6 +28,9 @@ ADCharacterBase::ADCharacterBase(const class FObjectInitializer& ObjectInitializ
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 	bAlwaysRelevant = true;
 
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
+	GetMesh()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
+
 }
 
 bool ADCharacterBase::IsAvailableForInteraction_Implementation(UPrimitiveComponent* InteractionComponent) const

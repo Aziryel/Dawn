@@ -57,6 +57,8 @@ public:
 	FGameplayTag AbilityTag_Interaction;
 	FGameplayTag AbilityTag_InteractEnd;
 	FGameplayTag AbilityTag_BlocksInteraction;
+	//Gameplay Events Tags
+	FGameplayTag GameplayEventTag_FireBolt;
 	//State Tags
 	FGameplayTag StateTag_Dead;
 	FGameplayTag StateTag_Interaction;
