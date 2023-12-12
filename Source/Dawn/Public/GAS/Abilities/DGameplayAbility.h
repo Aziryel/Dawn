@@ -18,7 +18,7 @@ class DAWN_API UDGameplayAbility : public UGameplayAbility
 public:
 	UDGameplayAbility();
 
-	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	UPROPERTY(EditDefaultsOnly, Category = "Input", meta = (Categories = "InputTag"))
 	FGameplayTag StartupInputTag;
 
 	// Tells an ability to activate immediately when its granted. Used for passive abilities and abilites forced on others.

@@ -18,7 +18,7 @@ class DAWN_API UDProjectileSpell : public UDGameplayAbility
 public:
 	UFUNCTION(BlueprintCallable)
 	void SetProjectileHitResult();
-	
+
 protected:
 
 	virtual void ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData) override;

@@ -7,4 +7,5 @@ void UDUserWidget::SetWidgetController(UObject* InWidgetController)
 {
 	WidgetController = InWidgetController;
 	WidgetControllerSet();
+	
 }

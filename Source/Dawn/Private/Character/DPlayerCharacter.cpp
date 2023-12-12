@@ -92,7 +92,6 @@ void ADPlayerCharacter::PossessedBy(AController* NewController)
 	// This is for the Server, the same settings are set on OnRep_PlayerState for Clients in the DPlayerCharacter class
 	InitializeASC();
 	AddCharacterAbilities();
-	
 }
 
 void ADPlayerCharacter::OnRep_PlayerState()
