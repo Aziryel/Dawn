@@ -67,7 +67,7 @@ void UDAT_WaitInteractableTarget::LineTrace(FHitResult& OutHitResult, const UWor
 			{
 				// bLookForInteractableActor is true, hit component must overlap COLLISION_INTERACTABLE trace channel
 				// This is so that a big Actor like a computer can have a small interactable button.
-				if (Hit.Component.IsValid() && Hit.Component.Get()->GetCollisionResponseToChannel(COLLISION_INTERACTABLE)
+				if (Hit.Component.IsValid() && Hit.Component.Get()->GetCollisionResponseToChannel(ECC_INTERACTABLE)
 					== ECollisionResponse::ECR_Overlap)
 				{
 					// Component/Actor must be available to interact

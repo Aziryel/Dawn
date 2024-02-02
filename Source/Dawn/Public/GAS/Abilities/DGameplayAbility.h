@@ -21,7 +21,7 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = "Input", meta = (Categories = "InputTag"))
 	FGameplayTag StartupInputTag;
 
-	// Tells an ability to activate immediately when its granted. Used for passive abilities and abilites forced on others.
+	// Tells an ability to activate immediately when its granted. Used for passive abilities and abilities forced on others.
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability")
 	bool bActivateAbilityOnGranted;
 

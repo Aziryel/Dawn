@@ -47,6 +47,8 @@ void FDGameplayTags::AddAllTags(UGameplayTagsManager& Manager)
 	AddTag(InputTag_8, "InputTag.8", "Input tag for Key 8");
 	AddTag(InputTag_9, "InputTag.9", "Input tag for Key 9");
 	AddTag(InputTag_0, "InputTag.0", "Input tag for Key 0");
+	AddTag(InputTag_ConfirmTargeting, "InputTag.ConfirmTargeting", "Input tag to confirm target(s)");
+	AddTag(InputTag_CancelTargeting, "InputTag.CancelTargeting", "Input tag to cancel target(s)");
 	//WeaponTags
 	AddTag(WeaponTag_Initial, "WeaponTag.Initial", "Weapon is Initialized in the World");
 	AddTag(WeaponTag_Equipped, "WeaponTag.Equipped", "Weapon is equipped");

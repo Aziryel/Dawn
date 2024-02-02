@@ -4,6 +4,7 @@
 #include "Abilities/Tasks/AbilityTask_NetworkSyncPoint.h"
 #include "Character/DCharacterMovementComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "Dawn/Dawn.h"
 #include "GAS/DAbilitySystemComponent.h"
 #include "GAS/DAttributeSet.h"
 #include "GAS/Abilities/DGameplayAbility.h"
@@ -30,6 +31,8 @@ ADCharacterBase::ADCharacterBase(const class FObjectInitializer& ObjectInitializ
 
 	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
 	GetMesh()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
+	GetMesh()->SetCollisionResponseToChannel(ECC_PROJECTILE, ECR_Overlap);
+	GetMesh()->SetGenerateOverlapEvents(true);
 
 }
 

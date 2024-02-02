@@ -42,8 +42,8 @@ void ADWeaponBase::BeginPlay()
 	{
 		PickupArea->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 		PickupArea->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
-		PickupArea->SetCollisionResponseToChannel(COLLISION_ABILITY, ECR_Overlap);
-		PickupArea->SetCollisionResponseToChannel(COLLISION_INTERACTABLE, ECR_Overlap);
+		PickupArea->SetCollisionResponseToChannel(ECC_ABILITY, ECR_Overlap);
+		PickupArea->SetCollisionResponseToChannel(ECC_INTERACTABLE, ECR_Overlap);
 		PickupArea->OnComponentBeginOverlap.AddDynamic(this, &ADWeaponBase::OnCapsuleOverlap);
 		PickupArea->OnComponentEndOverlap.AddDynamic(this, &ADWeaponBase::OnCapsuleEndOverlap);
 	}

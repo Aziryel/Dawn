@@ -46,6 +46,8 @@ public:
 	FGameplayTag InputTag_8;
 	FGameplayTag InputTag_9;
 	FGameplayTag InputTag_0;
+	FGameplayTag InputTag_ConfirmTargeting;
+	FGameplayTag InputTag_CancelTargeting;
 	
 	//Weapon Tags
 	FGameplayTag WeaponTag_Initial;

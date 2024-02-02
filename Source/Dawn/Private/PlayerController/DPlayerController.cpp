@@ -52,6 +52,11 @@ void ADPlayerController::SetupInputComponent()
 	DEnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Look_Mouse, ETriggerEvent::Triggered, this, &ADPlayerController::Input_Look);
 	DEnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Look_Stick, ETriggerEvent::Triggered, this, &ADPlayerController::Input_Look);
 	DEnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Jump, ETriggerEvent::Triggered, this, &ADPlayerController::Input_Jump);
+	if (GetASC())
+	{
+		DEnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_ConfirmTargeting, ETriggerEvent::Triggered, GetASC(), &UAbilitySystemComponent::LocalInputConfirm);
+		DEnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_CancelTargeting, ETriggerEvent::Triggered, GetASC(), &UAbilitySystemComponent::LocalInputCancel);
+	}
 	
 }
 
