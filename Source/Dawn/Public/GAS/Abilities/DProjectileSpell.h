@@ -7,6 +7,8 @@
 #include "DProjectileSpell.generated.h"
 
 class ADProjectile;
+class UGameplayEffect;
+
 /**
  * 
  */
@@ -31,5 +33,8 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite)
 	FHitResult ProjectileHitResult;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSubclassOf<UGameplayEffect> DamageEffectClass;
 
 };

@@ -16,7 +16,6 @@ public class Dawn : ModuleRules
 			"HeadMountedDisplay", 
 			"EnhancedInput", 
 			"CommonUI",
-			//"CommonGame"
 		});
 		
 		PrivateDependencyModuleNames.AddRange(new string[] {

@@ -27,6 +27,7 @@ ADCharacterBase::ADCharacterBase(const class FObjectInitializer& ObjectInitializ
 	PrimaryActorTick.bCanEverTick = false;
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
+	GetCapsuleComponent()->SetGenerateOverlapEvents(false);
 	bAlwaysRelevant = true;
 
 	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);

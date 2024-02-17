@@ -3,6 +3,7 @@
 
 #include "Actor/DProjectile.h"
 
+#include "AbilitySystemBlueprintLibrary.h"
 #include "NiagaraFunctionLibrary.h"
 #include "Character/DPlayerCharacter.h"
 #include "Components/AudioComponent.h"
@@ -83,6 +84,12 @@ void ADProjectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AAc
 	the sound and effect from the Destroyed function ONLY on the client. **/
 	if (HasAuthority())
 	{
+		//Due to the effect changing an attribute and the attribute being replicated, it only needs to be called on the Server
+		if(UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(OtherActor))
+		{
+			TargetASC->ApplyGameplayEffectSpecToSelf(*DamageEffectSpecHandle.Data.Get());
+		}
+		
 		Destroy();
 	}
 	else

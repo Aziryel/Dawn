@@ -4,8 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "DCharacterBase.h"
+#include "UI/WidgetController/OverlayWidgetController.h"
 #include "DEnemyCharacter.generated.h"
 
+class UWidgetComponent;
 /**
  * 
  */
@@ -21,11 +23,15 @@ public:
 	virtual void HighlightActor() override;
 	virtual void UnHighlightActor() override;
 	
-	/** End Interface */
-	virtual int32 GetPlayerLevel() override;
 	/** Combat Interface */
-	
+	virtual int32 GetPlayerLevel() override;
 	/** End Combat Interface */
+
+	UPROPERTY(BlueprintAssignable)
+	FOnAttributeChangedSignature OnHealthChanged;
+
+	UPROPERTY(BlueprintAssignable)
+	FOnAttributeChangedSignature OnMaxHealthChanged;
 
 protected:
 	virtual void BeginPlay() override;
@@ -33,5 +39,8 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Character Class Default")
 	int32 Level = 1;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	TObjectPtr<UWidgetComponent> HealthBar;
 
 };

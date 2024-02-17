@@ -64,7 +64,22 @@ void UDProjectileSpell::SpawnProjectile()
 			Cast<APawn>(GetOwningActorFromActorInfo()),
 			ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
 
-		//TODO: Give the projectile a Gameplay Effect Spec for causing damage.
+		if (IsValid(DamageEffectClass))
+		{
+			const UAbilitySystemComponent* SourceASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetAvatarActorFromActorInfo());
+			const FGameplayEffectSpecHandle SpecHandle = SourceASC->MakeOutgoingSpec(DamageEffectClass, GetAbilityLevel(), SourceASC->MakeEffectContext());
+			Projectile->DamageEffectSpecHandle = SpecHandle;
+		}
+		else
+		{
+			GEngine->AddOnScreenDebugMessage(
+				-1,
+				10.f, 
+				FColor::Orange,
+				FString::Printf(TEXT("Damage Effect Class not set on Projectile Spell Blueprint!!"))
+				);
+		}
+		
 		Projectile->FinishSpawning(ProjectileSpawnTransform);
 	}
 }
