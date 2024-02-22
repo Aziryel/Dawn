@@ -5,6 +5,7 @@
 #include "Components/WidgetComponent.h"
 #include "Dawn/Dawn.h"
 #include "GAS/DAbilitySystemComponent.h"
+#include "GAS/DAbilitySystemLibrary.h"
 #include "GAS/DAttributeSet.h"
 #include "UI/Widget/DUserWidget.h"
 
@@ -80,4 +81,9 @@ void ADEnemyCharacter::InitializeASC()
 	Cast<UDAbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
 
 	InitializeDefaultAttributes();
+}
+
+void ADEnemyCharacter::InitializeDefaultAttributes() const
+{
+	UDAbilitySystemLibrary::InitializeDefaultAttributes(this, CharacterClass, Level, AbilitySystemComponent);
 }

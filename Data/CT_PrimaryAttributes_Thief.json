@@ -1,0 +1,83 @@
+[
+	{
+		"Name": "Attributes.Primary.Intelligence",
+		"1": 5,
+		"5": 10,
+		"10": 12,
+		"15": 12,
+		"20": 13,
+		"40": 15
+	},
+	{
+		"Name": "Attributes.Primary.Strength",
+		"1": 10,
+		"5": 12,
+		"10": 13,
+		"15": 16,
+		"20": 18,
+		"40": 20
+	},
+	{
+		"Name": "Attributes.Primary.Vitality",
+		"1": 10,
+		"5": 12,
+		"10": 13,
+		"15": 16,
+		"20": 18,
+		"40": 20
+	},
+	{
+		"Name": "Attributes.Primary.Speed",
+		"1": 10,
+		"5": 12,
+		"10": 16,
+		"15": 19,
+		"20": 24,
+		"40": 30
+	},
+	{
+		"Name": "Attributes.Primary.Dexterity",
+		"1": 15,
+		"5": 19,
+		"10": 21,
+		"15": 25,
+		"20": 35,
+		"40": 45
+	},
+	{
+		"Name": "Attributes.Primary.Wisdom",
+		"1": 5,
+		"5": 10,
+		"10": 12,
+		"15": 12,
+		"20": 13,
+		"40": 15
+	},
+	{
+		"Name": "Attributes.Primary.Luck",
+		"1": 10,
+		"5": 12,
+		"10": 16,
+		"15": 19,
+		"20": 24,
+		"40": 30
+	},
+	{
+		"Name": "Atrtibutes.Primary.Devotion",
+		"1": 7,
+		"5": 10,
+		"10": 12,
+		"15": 12,
+		"20": 13,
+		"40": 15
+	},
+	{
+		"Name": "Attributes.Primary.Blasphemy",
+		"1": 7,
+		"5": 10,
+		"10": 12,
+		"15": 12,
+		"20": 13,
+		"40": 15
+	}
+]

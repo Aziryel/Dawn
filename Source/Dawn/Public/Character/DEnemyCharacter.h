@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "DCharacterBase.h"
 #include "UI/WidgetController/OverlayWidgetController.h"
+#include "GAS/Data/CharacterClassInfo.h"
 #include "DEnemyCharacter.generated.h"
 
 class UWidgetComponent;
@@ -36,9 +37,13 @@ public:
 protected:
 	virtual void BeginPlay() override;
 	virtual void InitializeASC() override;
+	virtual void InitializeDefaultAttributes() const override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Character Class Default")
 	int32 Level = 1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Character Class Default")
+	ECharacterClass CharacterClass = ECharacterClass::Fighter;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<UWidgetComponent> HealthBar;
