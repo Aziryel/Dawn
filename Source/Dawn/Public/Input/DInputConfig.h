@@ -2,10 +2,11 @@
 
 #include "CoreMinimal.h"
 #include "InputAction.h"
-#include "GameplayTags/Classes/GameplayTagContainer.h"
+#include "GameplayTagContainer.h"
 #include "Engine/DataAsset.h"
 #include "DInputConfig.generated.h"
 
+class UInputAction;
 struct FGameplayTag;
 
 USTRUCT(BlueprintType)

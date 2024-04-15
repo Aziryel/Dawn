@@ -16,14 +16,14 @@ public class Dawn : ModuleRules
 			"HeadMountedDisplay", 
 			"EnhancedInput", 
 			"CommonUI",
+			"GameplayAbilities", 
+			"GameplayTags", 
+			"GameplayTasks"
 		});
 		
 		PrivateDependencyModuleNames.AddRange(new string[] {
-			"GameplayAbilities", 
-			"GameplayTags", 
-			"GameplayTasks", 
 			"NavigationSystem", 
-			"Niagara", 
+			"Niagara"
 		});
 	}
 }
