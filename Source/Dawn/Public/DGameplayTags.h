@@ -48,6 +48,12 @@ public:
 	FGameplayTag InputTag_0;
 	FGameplayTag InputTag_ConfirmTargeting;
 	FGameplayTag InputTag_CancelTargeting;
+
+	//Other Tags
+	FGameplayTag Damage;
+
+	//Effects Tags
+	FGameplayTag Effect_HitReact;
 	
 	//Weapon Tags
 	FGameplayTag WeaponTag_Initial;

@@ -49,6 +49,10 @@ void FDGameplayTags::AddAllTags(UGameplayTagsManager& Manager)
 	AddTag(InputTag_0, "InputTag.0", "Input tag for Key 0");
 	AddTag(InputTag_ConfirmTargeting, "InputTag.ConfirmTargeting", "Input tag to confirm target(s)");
 	AddTag(InputTag_CancelTargeting, "InputTag.CancelTargeting", "Input tag to cancel target(s)");
+	//Other Tags
+	AddTag(Damage, "Damage", "Tag to apply damage");
+	//Effects Tags
+	AddTag(Effect_HitReact, "Effects.HitReact", "Tag to send the hit react animation");
 	//WeaponTags
 	AddTag(WeaponTag_Initial, "WeaponTag.Initial", "Weapon is Initialized in the World");
 	AddTag(WeaponTag_Equipped, "WeaponTag.Equipped", "Weapon is equipped");

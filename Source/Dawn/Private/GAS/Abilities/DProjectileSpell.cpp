@@ -4,6 +4,7 @@
 #include "GAS/Abilities/DProjectileSpell.h"
 
 #include "AbilitySystemBlueprintLibrary.h"
+#include "DGameplayTags.h"
 #include "Actor/DProjectile.h"
 #include "Character/DPlayerCharacter.h"
 #include "Interfaces/CombatInterface.h"
@@ -68,6 +69,11 @@ void UDProjectileSpell::SpawnProjectile()
 		{
 			const UAbilitySystemComponent* SourceASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetAvatarActorFromActorInfo());
 			const FGameplayEffectSpecHandle SpecHandle = SourceASC->MakeOutgoingSpec(DamageEffectClass, GetAbilityLevel(), SourceASC->MakeEffectContext());
+
+			const FDGameplayTags GameplayTags = FDGameplayTags::Get();
+			const float ScaledDamage = Damage.GetValueAtLevel(GetAbilityLevel());
+			
+			UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(SpecHandle, GameplayTags.Damage, ScaledDamage);
 			Projectile->DamageEffectSpecHandle = SpecHandle;
 		}
 		else

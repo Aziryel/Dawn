@@ -14,6 +14,7 @@
 class ADWeaponBase;
 class UDAttributeSet;
 class UGameplayAbility;
+class UAnimMontage;
 
 UCLASS()
 class DAWN_API ADCharacterBase : public ACharacter, public IAbilitySystemInterface, public IDInteractable, public ICombatInterface
@@ -33,6 +34,8 @@ public:
 	// Implement IAbilitySystemInterface
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	UDAttributeSet* GetAttributeSet() const { return Attributes; }
+
+	virtual UAnimMontage* GetHitReactMontage_Implementation() override;
 	
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
@@ -80,5 +83,8 @@ protected:
 private:
 	UPROPERTY(EditAnywhere, Category = "GAS|Default Gameplay Settings")
 	TArray<TSubclassOf<UGameplayAbility>> StartupAbilities;
+
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	TObjectPtr<UAnimMontage> HitReactMontage;
 	
 };

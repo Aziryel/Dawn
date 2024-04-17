@@ -2,8 +2,10 @@
 
 #include "Character/DEnemyCharacter.h"
 
+#include "DGameplayTags.h"
 #include "Components/WidgetComponent.h"
 #include "Dawn/Dawn.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "GAS/DAbilitySystemComponent.h"
 #include "GAS/DAbilitySystemLibrary.h"
 #include "GAS/DAttributeSet.h"
@@ -44,6 +46,7 @@ int32 ADEnemyCharacter::GetPlayerLevel()
 void ADEnemyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	GetCharacterMovement()->MaxWalkSpeed = BaseWalkSpeed;
 
 	InitializeASC();
 
@@ -69,10 +72,21 @@ void ADEnemyCharacter::BeginPlay()
 				}
 			);
 			
+			AbilitySystemComponent->RegisterGameplayTagEvent(FDGameplayTags::Get().Effect_HitReact, EGameplayTagEventType::NewOrRemoved).AddUObject(
+				this,
+				&ADEnemyCharacter::HitReactTagChanged
+			);
+			
 		}
 	}
 	OnHealthChanged.Broadcast(Attributes->GetHealth());
 	OnMaxHealthChanged.Broadcast(Attributes->GetMaxHealth());
+}
+
+void ADEnemyCharacter::HitReactTagChanged(const FGameplayTag CallbackTag, int32 NewCount)
+{
+	bHitReacting = NewCount > 0;
+	GetCharacterMovement()->MaxWalkSpeed = bHitReacting ? 0.f : BaseWalkSpeed;
 }
 
 void ADEnemyCharacter::InitializeASC()
