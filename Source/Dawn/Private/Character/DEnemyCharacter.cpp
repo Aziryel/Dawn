@@ -47,8 +47,9 @@ void ADEnemyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	GetCharacterMovement()->MaxWalkSpeed = BaseWalkSpeed;
-
 	InitializeASC();
+
+	UDAbilitySystemLibrary::GiveStartupAbilities(this, AbilitySystemComponent);
 
 	if (UDUserWidget* DawnUserWidget = Cast<UDUserWidget>(HealthBar->GetUserWidgetObject()))
 	{

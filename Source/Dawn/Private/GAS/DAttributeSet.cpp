@@ -146,6 +146,12 @@ void UDAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackD
 			SetHealth(FMath::Clamp(NewHealth, 0.f, GetMaxHealth()));
 
 			const bool bFatal = NewHealth <= 0.f;
+			if (!bFatal)
+			{
+				FGameplayTagContainer TagContainer;
+				TagContainer.AddTag(FDGameplayTags::Get().Effect_HitReact);
+				Props.TargetAbilitySystemComponent->TryActivateAbilitiesByTag(TagContainer);
+			}
 		}
 	}
 }

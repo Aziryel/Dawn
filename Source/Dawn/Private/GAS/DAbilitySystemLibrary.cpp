@@ -77,3 +77,25 @@ void UDAbilitySystemLibrary::InitializeDefaultAttributes(const UObject* WorldCon
 	const FGameplayEffectSpecHandle VitalAttributesSpecHandle = ASC->MakeOutgoingSpec(CharacterClassInfo->VitalAttributes, Level, VitalAttributesContextHandle);
 	ASC->ApplyGameplayEffectSpecToSelf(*VitalAttributesSpecHandle.Data.Get());
 }
+
+void UDAbilitySystemLibrary::GiveStartupAbilities(const UObject* WorldContextObject, UAbilitySystemComponent* ASC)
+{
+	ADGameModeBase* DawnGameMode = Cast<ADGameModeBase>(UGameplayStatics::GetGameMode(WorldContextObject));
+	if (DawnGameMode == nullptr) return;
+
+	UCharacterClassInfo* CharacterClassInfo = DawnGameMode->GetCharacterClassInfo();
+	if (!CharacterClassInfo)
+	{
+		GEngine->AddOnScreenDebugMessage(
+		-1,
+		15.f,
+		FColor::Purple,
+		FString::Printf(TEXT("Character Class Info is not set on the Game Mode Blueprint!!!"))
+		);
+	}
+	for (TSubclassOf<UGameplayAbility> AbilityClass : CharacterClassInfo->CommonAbilities)
+	{
+		FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityClass, 1);
+		ASC->GiveAbility(AbilitySpec);
+	}
+}

@@ -28,5 +28,8 @@ public:
 	/* Function to initialize default attributes based on a character class and the level */
 	UFUNCTION(BlueprintCallable, Category = "DAbilitySystemLibrary|CharacterClassDefaults")
 	static void InitializeDefaultAttributes(const UObject* WorldContextObject, ECharacterClass CharacterClass, float Level, UAbilitySystemComponent* ASC);
+
+	UFUNCTION(BlueprintCallable, Category = "DAbilitySystemLibrary|CharacterClassDefaults")
+	static void GiveStartupAbilities(const UObject* WorldContextObject, UAbilitySystemComponent* ASC);
 	
 };

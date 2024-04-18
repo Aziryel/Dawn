@@ -20,7 +20,6 @@ void UDAbilitySystemComponent::AddCharacterAbilities(const TArray<TSubclassOf<UG
 		{
 			AbilitySpec.DynamicAbilityTags.AddTag(DAbility->StartupInputTag);
 			GiveAbility(AbilitySpec);
-			//GiveAbilityAndActivateOnce(AbilitySpec);
 		}
 	}
 }
