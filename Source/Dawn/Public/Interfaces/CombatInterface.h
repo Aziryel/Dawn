@@ -33,4 +33,6 @@ public:
 	//Marking it as BlueprintNativeEvent already creates the override for this function using the _Implementation
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	UAnimMontage* GetHitReactMontage();
+
+	virtual void Die() = 0;
 };

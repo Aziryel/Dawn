@@ -43,6 +43,12 @@ int32 ADEnemyCharacter::GetPlayerLevel()
 	return Level;
 }
 
+void ADEnemyCharacter::Die()
+{
+	SetLifeSpan(LifeSpan);
+	Super::Die();
+}
+
 void ADEnemyCharacter::BeginPlay()
 {
 	Super::BeginPlay();

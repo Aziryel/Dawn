@@ -22,6 +22,7 @@ class DAWN_API ADCharacterBase : public ACharacter, public IAbilitySystemInterfa
 	GENERATED_BODY()
 
 public:
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	// Implements the abstract classes from IDInteractable
 	virtual void HighlightActor() override;
 	virtual void UnHighlightActor() override;
@@ -36,8 +37,10 @@ public:
 	UDAttributeSet* GetAttributeSet() const { return Attributes; }
 
 	virtual UAnimMontage* GetHitReactMontage_Implementation() override;
-	
-	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	virtual void Die() override;
+
+	UFUNCTION(NetMulticast, Reliable)
+	virtual void MulticastHandleDeath();
 
 	UFUNCTION(BlueprintCallable, Category = "GAS")
 	virtual bool IsAlive() const;

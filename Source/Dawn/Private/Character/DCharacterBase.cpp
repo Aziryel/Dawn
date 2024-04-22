@@ -74,6 +74,30 @@ UAnimMontage* ADCharacterBase::GetHitReactMontage_Implementation()
 	return HitReactMontage;
 }
 
+void ADCharacterBase::Die()
+{
+	//TODO detach from component the weapon once implemented
+	MulticastHandleDeath();
+}
+
+void ADCharacterBase::MulticastHandleDeath_Implementation()
+{
+	//All of this is set on 12-7
+	//TODO simulatephysics to true for the weapon
+	//TODO enablegravity to true for the weapon
+	//TODO enable collision for the weapon
+	//I'll probably just handle the weapons and items using the inventory system but it would be cool to
+	//make it so the weapon drops to the ground and then you can pick it up using the same system
+
+	
+	GetMesh()->SetSimulatePhysics(true);
+	GetMesh()->SetEnableGravity(true);
+	GetMesh()->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
+	GetMesh()->SetCollisionResponseToChannel(ECC_WorldStatic, ECR_Block);
+	
+	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+}
+
 void ADCharacterBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
